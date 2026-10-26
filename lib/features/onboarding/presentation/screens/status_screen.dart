@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:baytna_worker/core/di/injection.dart';
 import 'package:baytna_worker/core/localization/l10n.dart';
 import 'package:baytna_worker/core/localization/localized_text.dart';
+import 'package:baytna_worker/core/router/app_router.dart';
 import 'package:baytna_worker/core/router/app_routes.dart';
 import 'package:baytna_worker/core/utils/clock.dart';
 import 'package:baytna_worker/core/widgets/directional_icon.dart';
@@ -39,7 +40,7 @@ class StatusScreen extends StatefulWidget {
   State<StatusScreen> createState() => _StatusScreenState();
 }
 
-class _StatusScreenState extends State<StatusScreen> {
+class _StatusScreenState extends State<StatusScreen> with RouteAware {
   static const _pollInterval = Duration(minutes: 2);
 
   late final StatusBloc _status = getIt<StatusBloc>()..add(const StatusDocumentsRequested());
@@ -58,8 +59,21 @@ class _StatusScreenState extends State<StatusScreen> {
     });
   }
 
+  /// Profile and documents are edited on screens stacked on top of this one;
+  /// reload when she comes back so the checklist (and "Submit") is current.
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    final route = ModalRoute.of(context);
+    if (route != null) AppRouter.routeObserver.subscribe(this, route);
+  }
+
+  @override
+  void didPopNext() => _refresh();
+
   @override
   void dispose() {
+    AppRouter.routeObserver.unsubscribe(this);
     _poll.cancel();
     _lifecycle.dispose();
     unawaited(_status.close());

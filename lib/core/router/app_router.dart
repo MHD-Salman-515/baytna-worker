@@ -25,8 +25,13 @@ class AppRouter {
   final AuthBloc _auth;
   final WorkerBloc _worker;
 
+  /// Lets screens react to routes being pushed over / popped off them
+  /// (RouteAware), e.g. the status screen reloading after the documents step.
+  static final routeObserver = RouteObserver<ModalRoute<void>>();
+
   late final GoRouter config = GoRouter(
     initialLocation: AppRoutes.splash,
+    observers: [routeObserver],
     refreshListenable: _StreamListenable([_auth.stream, _worker.stream]),
     redirect: (context, state) => appRedirect(_auth.state, _worker.state, state.uri),
     routes: [
