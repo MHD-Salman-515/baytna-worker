@@ -1,0 +1,241 @@
+{
+  "@@locale": "ar",
+  "appTitle": "بيتنا للعاملات",
+  "@appTitle": {
+    "description": "App name shown on splash and window title."
+  },
+  "appTagline": "اعملي بثقة، بشروطك",
+  "switchLanguage": "English",
+  "@switchLanguage": {
+    "description": "Label of the button that switches to the OTHER language, written in that language."
+  },
+  "retry": "إعادة المحاولة",
+  "continueAction": "متابعة",
+  "serverWakingUp": "الخادم يستيقظ، قد يستغرق ذلك دقيقة…",
+  "@serverWakingUp": {
+    "description": "Shown when a request is slow because the staging server is cold-starting."
+  },
+  "countrySelectTitle": "اختر بلدك",
+  "countrySelectSubtitle": "نعرض الخدمات والأسعار حسب بلدك",
+  "countriesEmpty": "لا توجد دول متاحة حالياً",
+  "phoneTitle": "رقم الهاتف",
+  "phoneSubtitle": "أدخل رقم هاتفك المحمول وسنرسل لك رمز تحقق",
+  "phoneFieldLabel": "رقم الهاتف المحمول",
+  "phoneInvalid": "أدخل رقم هاتف صحيحاً",
+  "phoneRejected": "هذا الرقم غير صالح للبلد المختار",
+  "sendCode": "إرسال الرمز",
+  "otpTitle": "رمز التحقق",
+  "otpSubtitle": "أدخل الرمز المكوّن من 6 أرقام المرسل إلى {phone}",
+  "@otpSubtitle": {
+    "placeholders": {
+      "phone": {
+        "type": "String"
+      }
+    }
+  },
+  "otpVerify": "تحقق",
+  "otpResendIn": "يمكنك إعادة الإرسال بعد {seconds, plural, =1{ثانية واحدة} =2{ثانيتين} few{{seconds} ثوانٍ} other{{seconds} ثانية}}",
+  "@otpResendIn": {
+    "placeholders": {
+      "seconds": {
+        "type": "int"
+      }
+    }
+  },
+  "otpResend": "إعادة إرسال الرمز",
+  "otpResent": "تم إرسال رمز جديد",
+  "otpInvalid": "الرمز غير صحيح أو منتهي الصلاحية",
+  "otpTooManyAttempts": "محاولات خاطئة كثيرة. اطلب رمزاً جديداً للمتابعة.",
+  "changeNumber": "تغيير الرقم",
+  "logout": "تسجيل الخروج",
+  "sessionExpired": "انتهت جلستك. يرجى تسجيل الدخول مجدداً.",
+  "errorNetwork": "تعذّر الاتصال. تحقق من اتصالك بالإنترنت.",
+  "errorTimeout": "استغرق الخادم وقتاً طويلاً للرد. حاول مجدداً.",
+  "errorServer": "حدث خطأ في الخادم. حاول لاحقاً.",
+  "errorRateLimited": "طلبات كثيرة. انتظر قليلاً ثم حاول مجدداً.",
+  "errorValidation": "البيانات المدخلة غير صحيحة.",
+  "errorUnauthorized": "ليست لديك صلاحية للقيام بذلك.",
+  "errorNotFound": "العنصر المطلوب غير موجود.",
+  "errorUnknown": "حدث خطأ غير متوقع.",
+  "splashLoadFailed": "تعذّر تحميل حسابك",
+  "applyTitle": "انضمي إلى بيتنا",
+  "applySubtitle": "قدّمي طلبك للعمل مع بيتنا. نراجع كل طلب بعناية لحماية العاملات والعائلات.",
+  "applyStepProfile": "أكملي ملفك المهني: خبرتك ولغاتك والمدن التي تعملين فيها",
+  "applyStepDocuments": "ارفعي صور هويتك وشهادة عدم المحكومية",
+  "applyStepReview": "يراجع فريق بيتنا طلبك، ثم تبدئين العمل بعد القبول",
+  "applyAction": "تقديم طلب الانضمام",
+  "applyRoleNotGranted": "تم تقديم طلبك لكن لم تُحدَّث صلاحياتك بعد. حاولي مجدداً.",
+  "profileTitle": "ملفك المهني",
+  "profileSubtitle": "هذه المعلومات تساعد العائلات على اختيارك",
+  "profileBioAr": "نبذة عنك (بالعربية)",
+  "profileBioEn": "نبذة عنك (بالإنجليزية) — اختياري",
+  "profileBioHint": "مثال: خبرة 5 سنوات في تنظيف المنازل والطبخ",
+  "profileYears": "سنوات الخبرة",
+  "profileYearsInvalid": "أدخلي عدداً صحيحاً بين 0 و60",
+  "profileLanguages": "اللغات التي تتحدثينها",
+  "profileLanguagesRequired": "اختاري لغة واحدة على الأقل",
+  "profileCity": "مدينتك",
+  "profileCityRequired": "اختاري مدينتك",
+  "profileAreas": "المدن التي تعملين فيها",
+  "profileAreasRequired": "اختاري مدينة واحدة على الأقل",
+  "profileNoCities": "لا توجد مدن متاحة في بلدك حالياً",
+  "profileSave": "حفظ ومتابعة",
+  "profileSaved": "تم حفظ ملفك",
+  "languageAr": "العربية",
+  "languageKu": "الكردية",
+  "languageEn": "الإنجليزية",
+  "languageTr": "التركية",
+  "languageFr": "الفرنسية",
+  "documentsTitle": "الوثائق",
+  "documentsSubtitle": "صوّري الوثائق كاملة وبإضاءة جيدة حتى تكون كل الكتابة واضحة",
+  "documentsPrivacy": "تُرسل وثائقك مباشرة إلى فريق المراجعة في بيتنا ولا تُحفظ على هاتفك.",
+  "documentNationalIdFront": "الهوية — الوجه الأمامي",
+  "documentNationalIdBack": "الهوية — الوجه الخلفي",
+  "documentCriminalRecord": "شهادة عدم المحكومية",
+  "documentOther": "وثيقة أخرى",
+  "documentStateMissing": "مطلوبة",
+  "documentStatePending": "قيد المراجعة",
+  "documentStateApproved": "مقبولة",
+  "documentStateRejected": "مرفوضة",
+  "documentStateExpired": "منتهية الصلاحية",
+  "documentStateReady": "جاهزة للرفع",
+  "documentRejectedReason": "سبب الرفض: {reason}",
+  "@documentRejectedReason": {
+    "placeholders": {
+      "reason": {
+        "type": "String"
+      }
+    }
+  },
+  "documentExpiresOn": "تنتهي صلاحيتها في {date}",
+  "@documentExpiresOn": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "documentSourceCamera": "الكاميرا",
+  "documentSourceGallery": "المعرض",
+  "documentSourceFile": "ملف PDF",
+  "documentChoose": "اختيار",
+  "documentReplace": "استبدال",
+  "documentUpload": "رفع",
+  "documentDiscard": "إلغاء",
+  "documentExpiryLabel": "تاريخ انتهاء الصلاحية",
+  "documentExpiryPick": "اختاري تاريخ الانتهاء المكتوب على الشهادة",
+  "documentUploading": "جارٍ الرفع… {percent}٪",
+  "@documentUploading": {
+    "placeholders": {
+      "percent": {
+        "type": "int"
+      }
+    }
+  },
+  "documentUploadingUnknown": "جارٍ الرفع…",
+  "documentUploaded": "تم رفع الوثيقة",
+  "documentTooLarge": "الملف أكبر من 5 ميغابايت. التقطي صورة جديدة أو اختاري ملفاً أصغر.",
+  "documentTypeNotAllowed": "نوع الملف غير مدعوم. المسموح: صورة JPEG أو PNG، أو ملف PDF.",
+  "documentExpiryRequired": "أدخلي تاريخ انتهاء صلاحية في المستقبل",
+  "documentDeletionLocked": "لا يمكن تعديل الوثائق أثناء مراجعة طلبك",
+  "documentPdfPreview": "ملف PDF · {size}",
+  "@documentPdfPreview": {
+    "placeholders": {
+      "size": {
+        "type": "String"
+      }
+    }
+  },
+  "documentsDone": "تم",
+  "documentsAllUploaded": "رُفعت كل الوثائق المطلوبة. يمكنك الآن إرسال طلبك للمراجعة.",
+  "statusTitle": "طلبك",
+  "statusDraftTitle": "أكملي طلبك",
+  "statusDraftBody": "بقيت خطوات قليلة قبل إرسال طلبك للمراجعة.",
+  "statusPendingTitle": "طلبك قيد المراجعة",
+  "statusPendingBody": "سنخبرك هنا فور انتهاء المراجعة. لا يمكنك استقبال طلبات عمل قبل القبول.",
+  "statusSubmittedAt": "أُرسل في {date}",
+  "@statusSubmittedAt": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "statusWaitingMinutes": "بانتظار المراجعة منذ {count, plural, =0{أقل من دقيقة} =1{دقيقة} =2{دقيقتين} few{{count} دقائق} other{{count} دقيقة}}",
+  "@statusWaitingMinutes": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "statusWaitingHours": "بانتظار المراجعة منذ {count, plural, =1{ساعة} =2{ساعتين} few{{count} ساعات} other{{count} ساعة}}",
+  "@statusWaitingHours": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "statusWaitingDays": "بانتظار المراجعة منذ {count, plural, =1{يوم} =2{يومين} few{{count} أيام} other{{count} يوماً}}",
+  "@statusWaitingDays": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "statusRejectedTitle": "لم يُقبل طلبك بعد",
+  "statusRejectedBody": "صحّحي ما يلي ثم أعيدي إرسال طلبك.",
+  "statusRejectedReason": "ملاحظة فريق المراجعة",
+  "statusDocumentsToReplace": "وثائق يجب استبدالها",
+  "statusSuspendedTitle": "حسابك موقوف",
+  "statusSuspendedBody": "لا يمكنك العمل حالياً. تواصلي مع دعم بيتنا لمعرفة السبب وكيفية رفع الإيقاف.",
+  "statusApprovedTitle": "تم قبولك!",
+  "statusApprovedBody": "حسابك موثّق ويمكنك البدء بالعمل.",
+  "statusUnknownTitle": "تعذّر تحديد حالة طلبك",
+  "statusUnknownBody": "حدّثي الصفحة، وإن استمرت المشكلة تواصلي مع دعم بيتنا.",
+  "statusChecklistTitle": "الخطوات",
+  "statusStepProfile": "الملف المهني",
+  "statusStepDocuments": "الوثائق المطلوبة",
+  "statusStepDone": "مكتمل",
+  "statusStepTodo": "غير مكتمل",
+  "statusEditProfile": "تعديل الملف",
+  "statusOpenDocuments": "الوثائق",
+  "statusSubmit": "إرسال للمراجعة",
+  "statusResubmit": "إعادة الإرسال للمراجعة",
+  "statusSubmitBlocked": "أكملي الخطوات أعلاه أولاً",
+  "statusSubmitted": "تم إرسال طلبك للمراجعة",
+  "statusMissingDocuments": "بعض الوثائق المطلوبة ناقصة أو مرفوضة أو منتهية الصلاحية",
+  "statusTransitionConflict": "تغيّرت حالة طلبك. تم تحديث الصفحة.",
+  "statusContinue": "متابعة",
+  "statusPullToRefresh": "اسحبي للأسفل للتحديث",
+  "statusRefresh": "تحديث",
+  "accountSectionTitle": "حسابك",
+  "verificationLabel": "التوثيق",
+  "verificationDraft": "غير مكتمل",
+  "verificationPending": "قيد المراجعة",
+  "verificationApproved": "موثّقة",
+  "verificationRejected": "بحاجة لتعديل",
+  "verificationSuspended": "موقوف",
+  "verificationUnknown": "غير معروف",
+  "financialLabel": "الوضع المالي",
+  "financialActive": "سليم",
+  "financialSuspended": "موقوف مالياً",
+  "financialUnknown": "مقيّد",
+  "financialSuspendedBody": "رصيد محفظتك تجاوز الحد المسموح. لن تصلك عروض عمل حتى تتم تسوية الرصيد، حتى لو كان حسابك موثّقاً.",
+  "financialUnknownBody": "وضعك المالي غير واضح. تواصلي مع دعم بيتنا.",
+  "homeTitle": "الرئيسية",
+  "homeWelcome": "أهلاً بك، أنتِ جاهزة للعمل",
+  "homeComingSoon": "الحجوزات والعروض والمحفظة قادمة في التحديث القادم",
+  "homeSignedInAs": "تم تسجيل الدخول بالرقم",
+  "devFillOtp": "تعبئة الرمز تلقائياً (وضع التطوير)",
+  "devOtpUnavailable": "تعذّر جلب الرمز: {reason}",
+  "@devOtpUnavailable": {
+    "placeholders": {
+      "reason": {
+        "type": "String"
+      }
+    }
+  }
+}
