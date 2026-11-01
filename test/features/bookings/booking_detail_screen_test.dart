@@ -186,6 +186,37 @@ void main() {
     expect(find.textContaining('km'), findsNothing);
   });
 
+  testWidgets('accepted: the phone number is shown whole, and the map is offered', (tester) async {
+    await show(
+      tester,
+      booking('ACCEPTED', {
+        'customerPhone': '+963955500101',
+        'address': {
+          'landmark': 'L',
+          'text': 'aleppo',
+          'floor': '2',
+          'point': {
+            'type': 'Point',
+            'coordinates': [37.1, 36.2],
+          },
+        },
+      }),
+      _profile(),
+    );
+    final number = find.textContaining('+963955500101');
+    expect(number, findsOneWidget);
+    expect(tester.widget<Text>(number).overflow, isNot(TextOverflow.ellipsis));
+    expect(tester.getSize(find.byKey(const ValueKey('call-customer'))).width, greaterThan(350));
+    expect(find.byKey(const ValueKey('open-map')), findsOneWidget);
+  });
+
+  testWidgets('working: the estimate sits above the swipe, without scrolling', (tester) async {
+    await show(tester, booking('IN_PROGRESS', {'startedAt': '2026-11-01T11:00:00.000Z'}), _profile());
+    final figure = tester.getBottomLeft(find.byKey(const ValueKey('estimated-earnings'))).dy;
+    expect(figure, lessThan(tester.getTopLeft(find.byKey(const ValueKey('swipe-complete'))).dy));
+    expect(find.byKey(const ValueKey('booking-landmark')), findsOneWidget);
+  });
+
   testWidgets('deadline already past: no accepting into a 400', (tester) async {
     await show(tester, booking('PENDING_WORKER', {'responseDeadline': '2026-11-01T11:59:00.000Z'}), _profile());
     expect(find.byKey(const ValueKey('accept-booking')), findsNothing);

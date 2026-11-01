@@ -110,6 +110,12 @@ class _Body extends StatelessWidget {
                 ),
                 const SizedBox(height: 16),
                 if (status.isActiveJob) ...[_TripProgress(status: status), const SizedBox(height: 16)],
+                // While she works, what she's earning matters more than where she
+                // already is: keep it above the fold, right over the swipe.
+                if (status == BookingStatus.inProgress) ...[
+                  _EarningsEstimate(state: state),
+                  const SizedBox(height: 12),
+                ],
                 if (deciding && booking.responseDeadline != null) ...[
                   Center(
                     child: DeadlineCountdown(
@@ -126,7 +132,7 @@ class _Body extends StatelessWidget {
                 const SizedBox(height: 12),
                 if (status == BookingStatus.completed)
                   _MoneyOutcome(state: state)
-                else if (!status.isFinished || status == BookingStatus.expired)
+                else if (status != BookingStatus.inProgress && (!status.isFinished || status == BookingStatus.expired))
                   _EarningsEstimate(state: state),
                 if (status == BookingStatus.cancelled) _CancelledNote(booking: booking),
                 if (booking.customerNote case final note? when note.isNotEmpty) ...[
@@ -285,35 +291,28 @@ class _PlaceCard extends StatelessWidget {
               const SizedBox(height: 4),
               Text(notes, style: theme.textTheme.bodyMedium?.copyWith(color: scheme.onSurfaceVariant)),
             ],
-            if (booking.status.isActiveJob && (phone != null || point != null)) ...[
+            if (booking.status.isActiveJob && phone != null) ...[
               const SizedBox(height: 12),
-              Row(
-                children: [
-                  if (phone != null)
-                    Expanded(
-                      child: OutlinedButton.icon(
-                        key: const ValueKey('call-customer'),
-                        style: OutlinedButton.styleFrom(minimumSize: const Size.fromHeight(48)),
-                        onPressed: () => _open(context, Uri(scheme: 'tel', path: phone)),
-                        icon: const Icon(Icons.call_rounded, size: 20),
-                        label: Text(ltrIsolate(phone), overflow: TextOverflow.ellipsis),
-                      ),
-                    ),
-                  if (phone != null && point != null) const SizedBox(width: 8),
-                  if (point != null)
-                    Expanded(
-                      child: OutlinedButton.icon(
-                        key: const ValueKey('open-map'),
-                        style: OutlinedButton.styleFrom(minimumSize: const Size.fromHeight(48)),
-                        onPressed: () => _open(
-                          context,
-                          Uri.parse('geo:${point.latitude},${point.longitude}?q=${point.latitude},${point.longitude}'),
-                        ),
-                        icon: const Icon(Icons.map_outlined, size: 20),
-                        label: Text(l10n.bookingOpenMap, overflow: TextOverflow.ellipsis),
-                      ),
-                    ),
-                ],
+              // Full width: a truncated number is a useless number.
+              OutlinedButton.icon(
+                key: const ValueKey('call-customer'),
+                style: OutlinedButton.styleFrom(minimumSize: const Size.fromHeight(48)),
+                onPressed: () => _open(context, Uri(scheme: 'tel', path: phone)),
+                icon: const Icon(Icons.call_rounded, size: 20),
+                label: Text(ltrIsolate(phone)),
+              ),
+            ],
+            if (booking.status.isActiveJob && point != null) ...[
+              const SizedBox(height: 8),
+              OutlinedButton.icon(
+                key: const ValueKey('open-map'),
+                style: OutlinedButton.styleFrom(minimumSize: const Size.fromHeight(48)),
+                onPressed: () => _open(
+                  context,
+                  Uri.parse('geo:${point.latitude},${point.longitude}?q=${point.latitude},${point.longitude}'),
+                ),
+                icon: const Icon(Icons.map_outlined, size: 20),
+                label: Text(l10n.bookingOpenMap),
               ),
             ],
           ],
