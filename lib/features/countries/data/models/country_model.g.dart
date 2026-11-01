@@ -13,4 +13,7 @@ CountryModel _$CountryModelFromJson(Map<String, dynamic> json) => CountryModel(
   phonePrefix: json['phonePrefix'] as String,
   currencyCode: json['currencyCode'] as String,
   timezone: json['timezone'] as String,
+  walletPolicy: json['walletPolicy'] == null
+      ? WalletPolicy.defaults
+      : WalletPolicy.fromJson(json['walletPolicy']),
 );

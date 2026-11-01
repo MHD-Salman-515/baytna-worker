@@ -31,5 +31,12 @@ class WorkerRemoteDataSource {
     decode: _decode,
   );
 
+  /// Answers with the updated profile.
+  Future<WorkerProfileModel> setAvailability({required bool isAvailable}) => _api.patch(
+    '/workers/me/availability',
+    body: {'isAvailable': isAvailable},
+    decode: _decode,
+  );
+
   Future<WorkerProfileModel> submit() => _api.post('/workers/me/submit', decode: _decode);
 }

@@ -17,8 +17,8 @@ part 'worker_profile_model.g.dart';
 ///   "createdAt": "…", "updatedAt": "…", "id": "…" }
 /// ```
 ///
-/// `bio` is ABSENT (not null) until set. Availability, rating and bookings
-/// belong to later phases and aren't mapped yet.
+/// `bio` is ABSENT (not null) until set. `rating` and `completedBookings`
+/// aren't mapped: reviews are a later phase.
 @JsonSerializable(createToJson: false)
 class WorkerProfileModel {
   const WorkerProfileModel({
@@ -34,6 +34,7 @@ class WorkerProfileModel {
     this.rejectionReason,
     this.submittedAt,
     this.reviewedAt,
+    this.isAvailable = false,
   });
 
   factory WorkerProfileModel.fromJson(Map<String, dynamic> json) =>
@@ -53,6 +54,7 @@ class WorkerProfileModel {
   final LocalizedText? rejectionReason;
   final DateTime? submittedAt;
   final DateTime? reviewedAt;
+  final bool isAvailable;
 
   WorkerProfile toEntity() => WorkerProfile(
     id: id,
@@ -67,6 +69,7 @@ class WorkerProfileModel {
     rejectionReason: rejectionReason,
     submittedAt: submittedAt,
     reviewedAt: reviewedAt,
+    isAvailable: isAvailable,
   );
 }
 

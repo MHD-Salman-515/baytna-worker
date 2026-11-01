@@ -65,6 +65,10 @@ class WorkerRepositoryImpl implements WorkerRepository {
       guard(() async => (await _remote.upsertProfile(input)).toEntity());
 
   @override
+  Future<Result<WorkerProfile>> setAvailability({required bool isAvailable}) =>
+      guard(() async => (await _remote.setAvailability(isAvailable: isAvailable)).toEntity());
+
+  @override
   Future<Result<WorkerProfile>> submitForReview() async {
     final result = await guard(() async => (await _remote.submit()).toEntity());
     return switch (result) {

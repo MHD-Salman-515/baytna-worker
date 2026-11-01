@@ -10,4 +10,5 @@ CityModel _$CityModelFromJson(Map<String, dynamic> json) => CityModel(
   id: json['id'] as String,
   countryId: json['countryId'] as String,
   name: LocalizedText.fromJson(json['name']),
+  center: GeoPoint.tryFromGeoJson(json['center']),
 );

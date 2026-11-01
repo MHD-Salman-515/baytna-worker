@@ -223,12 +223,389 @@
   "financialActive": "سليم",
   "financialSuspended": "موقوف مالياً",
   "financialUnknown": "مقيّد",
-  "financialSuspendedBody": "رصيد محفظتك تجاوز الحد المسموح. لن تصلك عروض عمل حتى تتم تسوية الرصيد، حتى لو كان حسابك موثّقاً.",
+  "financialSuspendedBody": "رصيد محفظتك تجاوز الحد المسموح. لن تصلك طلبات جديدة حتى تتم تسوية الرصيد، ويمكنك إكمال عملك الحالي.",
   "financialUnknownBody": "وضعك المالي غير واضح. تواصلي مع دعم بيتنا.",
-  "homeTitle": "الرئيسية",
-  "homeWelcome": "أهلاً بك، أنتِ جاهزة للعمل",
-  "homeComingSoon": "الحجوزات والعروض والمحفظة قادمة في التحديث القادم",
-  "homeSignedInAs": "تم تسجيل الدخول بالرقم",
+  "tabJobs": "الأعمال",
+  "tabWork": "عملي",
+  "tabWallet": "المحفظة",
+  "loadMore": "تحميل المزيد",
+  "jobsTitle": "أعمالي",
+  "jobsRequests": "الطلبات ({count})",
+  "@jobsRequests": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "jobsActive": "الحالية ({count})",
+  "@jobsActive": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "jobsHistory": "السابقة",
+  "jobsRequestsEmpty": "لا توجد طلبات بانتظار ردك الآن. ستظهر هنا فور وصولها.",
+  "jobsActiveEmpty": "لا توجد أعمال مقبولة حالياً.",
+  "jobsHistoryEmpty": "لا توجد أعمال سابقة بعد.",
+  "jobsExpiredNote": "انتهت مهلة الرد على هذا الطلب.",
+  "jobsBannerFinancial": "حسابك موقوف مالياً: لن تصلك طلبات جديدة حتى تتم تسوية محفظتك. أعمالك الحالية مستمرة.",
+  "jobsBannerUnavailable": "أنتِ غير متاحة الآن، فلن تصلك طلبات جديدة.",
+  "bookingStatusSearching": "بحث",
+  "bookingStatusPending": "بانتظار ردك",
+  "bookingStatusAccepted": "مقبول",
+  "bookingStatusOnTheWay": "في الطريق",
+  "bookingStatusArrived": "وصلتِ",
+  "bookingStatusInProgress": "جارٍ العمل",
+  "bookingStatusCompleted": "مكتمل",
+  "bookingStatusRejected": "مرفوض",
+  "bookingStatusCancelled": "ملغى",
+  "bookingStatusExpired": "منتهي المهلة",
+  "bookingStatusNoShow": "لم يتم الحضور",
+  "bookingStatusUnknown": "غير معروف",
+  "bookingAnswerWithin": "أجيبي خلال {time}",
+  "@bookingAnswerWithin": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "bookingDeadlinePassed": "انتهت مهلة الرد",
+  "bookingPlaceYourCity": "{city} — داخل مدينتك",
+  "@bookingPlaceYourCity": {
+    "placeholders": {
+      "city": {
+        "type": "String"
+      }
+    }
+  },
+  "bookingPlaceOtherCity": "{city} — نحو {km} كم بين مركزَي المدينتين",
+  "@bookingPlaceOtherCity": {
+    "placeholders": {
+      "city": {
+        "type": "String"
+      },
+      "km": {
+        "type": "int"
+      }
+    }
+  },
+  "bookingHiddenUntilAccepted": "هذا كل ما يمكن معرفته عن الموقع الآن. العنوان الدقيق والمسافة ورقم العميل يظهرون بعد القبول فقط.",
+  "bookingFloor": "الطابق: {floor}",
+  "@bookingFloor": {
+    "placeholders": {
+      "floor": {
+        "type": "String"
+      }
+    }
+  },
+  "bookingOpenMap": "فتح الخريطة",
+  "bookingCannotOpen": "تعذّر فتح التطبيق المطلوب",
+  "bookingDuration": "المدة المتوقعة: {duration}",
+  "@bookingDuration": {
+    "placeholders": {
+      "duration": {
+        "type": "String"
+      }
+    }
+  },
+  "bookingCustomerNote": "ملاحظة من العميل",
+  "durationMinutes": "{count} د",
+  "@durationMinutes": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "durationHours": "{count} س",
+  "@durationHours": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "durationHoursMinutes": "{hours} س {minutes} د",
+  "@durationHoursMinutes": {
+    "placeholders": {
+      "hours": {
+        "type": "int"
+      },
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
+  "bookingWorkingFor": "مدة العمل حتى الآن",
+  "bookingEstimatedEarnings": "أرباحك المتوقعة (تقديرية)",
+  "bookingEstimateFixed": "بعد خصم عمولة بيتنا.",
+  "bookingEstimateHourly": "تقدير لمدة {hours} س بعد خصم العمولة. الرقم النهائي يُحسب من وقت عملك الفعلي عند الإنهاء.",
+  "@bookingEstimateHourly": {
+    "placeholders": {
+      "hours": {
+        "type": "String"
+      }
+    }
+  },
+  "bookingEstimateHourlyNoHours": "تقدير بعد خصم العمولة. الرقم النهائي يُحسب من وقت عملك الفعلي عند الإنهاء.",
+  "bookingMinimumHours": "الحد الأدنى {hours, plural, =1{ساعة واحدة} =2{ساعتين} few{{hours} ساعات} other{{hours} ساعة}}.",
+  "@bookingMinimumHours": {
+    "placeholders": {
+      "hours": {
+        "type": "int"
+      }
+    }
+  },
+  "bookingFinalEarnings": "أرباحك النهائية",
+  "bookingEstimateWas": "كان التقدير",
+  "bookingTimeWorked": "وقت العمل الفعلي",
+  "bookingHoursCharged": "الساعات المحتسبة",
+  "bookingCommissionCharged": "العمولة المخصومة من محفظتك",
+  "bookingDifferenceMinimum": "عملتِ أقل من الحد الأدنى، فاحتُسب الحد الأدنى ({hours, plural, =1{ساعة واحدة} =2{ساعتين} few{{hours} ساعات} other{{hours} ساعة}}) بدل الساعات المقدّرة. هذا الفرق طبيعي وليس خصماً عليك.",
+  "@bookingDifferenceMinimum": {
+    "placeholders": {
+      "hours": {
+        "type": "int"
+      }
+    }
+  },
+  "bookingDifferenceActualTime": "الأجر بالساعة يُحسب من وقت عملك الفعلي، لا من المدة المقدّرة عند الحجز، لذلك اختلف الرقم عن التقدير.",
+  "bookingDifferenceGeneric": "تحدد الرقم النهائي عند إنهاء العمل، لذلك اختلف عن التقدير.",
+  "bookingSeeWallet": "عرض محفظتي",
+  "bookingCancelledByCustomer": "ألغى العميل هذا الحجز",
+  "bookingCancelledByYou": "ألغيتِ هذا الحجز",
+  "bookingAccept": "قبول",
+  "bookingReject": "رفض",
+  "bookingCannotAcceptSuspended": "لا يمكنك قبول طلبات جديدة حتى تتم تسوية محفظتك.",
+  "bookingRejectTitle": "لماذا ترفضين هذا الطلب؟",
+  "bookingRejectConfirm": "رفض الطلب",
+  "reasonRejectFar": "المكان بعيد",
+  "reasonRejectBusy": "لدي التزام في هذا الوقت",
+  "reasonRejectNotSuitable": "الطلب غير مناسب لي",
+  "reasonOther": "سبب آخر",
+  "bookingCancelAction": "إلغاء هذا الحجز",
+  "bookingCancelTitle": "لماذا تلغين هذا الحجز؟",
+  "bookingCancelConfirm": "تأكيد الإلغاء",
+  "bookingCancelPenalty": "سيُخصم {amount} من محفظتك عند الإلغاء.",
+  "@bookingCancelPenalty": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "reasonCancelEmergency": "ظرف طارئ",
+  "reasonCancelTransport": "تعذّر الوصول",
+  "reasonCancelCustomerAsked": "طلب العميل الإلغاء",
+  "bookingStepOnTheWay": "انطلقتُ إلى العميل",
+  "bookingStepArrived": "وصلتُ",
+  "bookingStepStart": "بدء العمل",
+  "bookingSwipeComplete": "اسحبي لإنهاء العمل",
+  "bookingCompleteHint": "عند الإنهاء يُحسب أجرك النهائي وتُخصم العمولة من محفظتك. لا يمكن التراجع.",
+  "bookingErrorExpired": "انتهت مهلة هذا الطلب، ولم يعد بالإمكان الرد عليه.",
+  "bookingErrorCancelled": "أُلغي هذا الحجز.",
+  "bookingErrorCompleted": "هذا العمل مكتمل بالفعل.",
+  "bookingErrorStale": "تغيّرت حالة هذا الحجز، وحدّثنا الصفحة لتعرضها كما هي الآن.",
+  "bookingErrorGate": "لا يمكنك قبول طلبات جديدة الآن. راجعي حالة حسابك ومحفظتك.",
+  "bookingErrorClash": "يتعارض هذا الموعد مع عمل آخر لديك.",
+  "bookingErrorRefused": "تعذّر تنفيذ هذه الخطوة الآن. حاولي مجدداً بعد قليل.",
+  "bookingErrorNotFound": "لم نعد نجد هذا الحجز.",
+  "workTitle": "عملي",
+  "workSchedule": "جدول العمل الأسبوعي",
+  "workScheduleHint": "متى تستقبلين الحجوزات",
+  "workServices": "خدماتي وأسعاري",
+  "workNoServices": "لم تضيفي أي خدمة بعد. بدون خدمة لا يمكن حجزك.",
+  "workAddService": "إضافة خدمة",
+  "availabilityOn": "أنا متاحة للعمل",
+  "availabilityOff": "أنا غير متاحة الآن",
+  "availabilityIntentNote": "هذا اختيارك أنتِ ويعبّر عن رغبتك في العمل فقط، وليس موافقة من بيتنا ولا يمنحك أي صلاحية.",
+  "availabilityNoEffectNow": "لن يكون لهذا الخيار أثر الآن، لأن حسابك لا يستطيع استقبال طلبات جديدة حالياً.",
+  "pricingHourly": "بالساعة",
+  "pricingBySize": "حسب حجم المنزل",
+  "pricingFixed": "سعر ثابت",
+  "pricingHourlyExplain": "سعر لكل ساعة، مع حد أدنى من الساعات. يُحسب الأجر النهائي من الوقت الفعلي.",
+  "pricingBySizeExplain": "سعر حسب عدد الغرف، على شكل شرائح.",
+  "pricingFixedExplain": "سعر واحد للعمل كاملاً.",
+  "priceSummaryHourly": "{rate} بالساعة · حد أدنى {hours, plural, =1{ساعة واحدة} =2{ساعتين} few{{hours} ساعات} other{{hours} ساعة}}",
+  "@priceSummaryHourly": {
+    "placeholders": {
+      "rate": {
+        "type": "String"
+      },
+      "hours": {
+        "type": "int"
+      }
+    }
+  },
+  "priceSummaryFixed": "{price} سعر ثابت",
+  "@priceSummaryFixed": {
+    "placeholders": {
+      "price": {
+        "type": "String"
+      }
+    }
+  },
+  "priceSummaryBySize": "من {from} إلى {to} · حتى {rooms} غرف",
+  "@priceSummaryBySize": {
+    "placeholders": {
+      "from": {
+        "type": "String"
+      },
+      "to": {
+        "type": "String"
+      },
+      "rooms": {
+        "type": "int"
+      }
+    }
+  },
+  "offeringPaused": "متوقفة مؤقتاً",
+  "offeringAddTitle": "إضافة خدمة",
+  "offeringEditTitle": "تعديل الخدمة",
+  "offeringService": "الخدمة",
+  "offeringPricingModel": "طريقة التسعير",
+  "offeringRange": "المسموح: من {min} إلى {max} {unit}",
+  "@offeringRange": {
+    "placeholders": {
+      "min": {
+        "type": "String"
+      },
+      "max": {
+        "type": "String"
+      },
+      "unit": {
+        "type": "String"
+      }
+    }
+  },
+  "offeringRangePerHour": "للساعة",
+  "offeringRangePerJob": "للعمل",
+  "offeringRangePerTier": "لكل شريحة",
+  "offeringNoRange": "لا يوجد نطاق سعر محدد لهذه الخدمة بعد.",
+  "offeringHourlyRate": "السعر بالساعة",
+  "offeringFixedPrice": "السعر الثابت",
+  "offeringMinHours": "الحد الأدنى من الساعات",
+  "offeringMinHoursHint": "إن انتهى العمل أبكر، يُحتسب هذا الحد.",
+  "offeringMinHoursInvalid": "الحد الأدنى ساعة واحدة على الأقل",
+  "offeringTierRooms": "حتى (غرف)",
+  "offeringTierPrice": "السعر",
+  "offeringTierAdd": "إضافة شريحة",
+  "offeringTiersInvalid": "رتّبي الشرائح تصاعدياً: كل شريحة تغطي غرفاً أكثر من التي قبلها.",
+  "offeringPriceMissing": "أدخلي السعر بأرقام صحيحة",
+  "offeringOutOfRange": "السعر يجب أن يكون بين {min} و{max}",
+  "@offeringOutOfRange": {
+    "placeholders": {
+      "min": {
+        "type": "String"
+      },
+      "max": {
+        "type": "String"
+      }
+    }
+  },
+  "offeringCurrencyFixed": "العملة: {currency}. تُحدَّد عند إضافة الخدمة ولا يمكن تغييرها.",
+  "@offeringCurrencyFixed": {
+    "placeholders": {
+      "currency": {
+        "type": "String"
+      }
+    }
+  },
+  "offeringActive": "الخدمة مفعّلة",
+  "offeringActiveHint": "أوقفيها مؤقتاً دون حذف أسعارك.",
+  "offeringDelete": "حذف الخدمة",
+  "offeringDeleteTitle": "حذف هذه الخدمة؟",
+  "offeringDeleteBody": "لن تظهر للزبائن بعد الآن.",
+  "offeringSave": "حفظ",
+  "offeringTypeNotAllowed": "طريقة التسعير هذه غير متاحة لهذه الخدمة.",
+  "offeringAlreadyExists": "تقدّمين هذه الخدمة بالفعل. عدّليها بدل إضافتها مرة أخرى.",
+  "scheduleTitle": "جدول العمل",
+  "scheduleTimezone": "كل الأوقات بتوقيت بلدك ({zone})، والساعة هناك الآن {now}، مهما كان توقيت هاتفك.",
+  "@scheduleTimezone": {
+    "placeholders": {
+      "zone": {
+        "type": "String"
+      },
+      "now": {
+        "type": "String"
+      }
+    }
+  },
+  "scheduleDayOff": "عطلة",
+  "scheduleAddRange": "فترة أخرى",
+  "scheduleExceptions": "أيام استثنائية",
+  "scheduleExceptionsHint": "أيام عطلة أو ساعات إضافية خارج جدولك المعتاد.",
+  "scheduleBlocked": "لا أعمل هذا اليوم",
+  "scheduleExtra": "ساعات إضافية {range}",
+  "@scheduleExtra": {
+    "placeholders": {
+      "range": {
+        "type": "String"
+      }
+    }
+  },
+  "scheduleAddBlocked": "يوم عطلة",
+  "scheduleAddExtra": "ساعات إضافية",
+  "scheduleOverlap": "هذه الفترات متداخلة",
+  "scheduleRangeInvalid": "يجب أن تبدأ الفترة قبل نهايتها",
+  "scheduleInvalid": "صحّحي الأوقات المعلّمة أولاً",
+  "scheduleSave": "حفظ الجدول",
+  "scheduleSaved": "تم حفظ جدولك",
+  "walletTitle": "المحفظة",
+  "walletBalance": "رصيدك",
+  "walletRoomToFloor": "يبقى {room} قبل الوصول إلى الحد الأدنى ({floor}). الرصيد السالب مسموح حتى هذا الحد.",
+  "@walletRoomToFloor": {
+    "placeholders": {
+      "room": {
+        "type": "String"
+      },
+      "floor": {
+        "type": "String"
+      }
+    }
+  },
+  "walletPastFloor": "تجاوزتِ الحد الأدنى ({floor}) بمقدار {over}.",
+  "@walletPastFloor": {
+    "placeholders": {
+      "over": {
+        "type": "String"
+      },
+      "floor": {
+        "type": "String"
+      }
+    }
+  },
+  "walletLowWarning": "رصيدك منخفض: وصل إلى {threshold} أو أقل. اشحني المحفظة قبل بلوغ الحد الأدنى كي لا يتوقف استقبال الطلبات.",
+  "@walletLowWarning": {
+    "placeholders": {
+      "threshold": {
+        "type": "String"
+      }
+    }
+  },
+  "walletBelowFloor": "تجاوز رصيدك الحد الأدنى. يتوقف استقبال الطلبات الجديدة تلقائياً حتى الشحن، ويعود تلقائياً بعده.",
+  "walletTopupNote": "لا يمكن شحن المحفظة من التطبيق حالياً: يسجّل فريق بيتنا الشحن يدوياً بعد الدفع له مباشرة. تواصلي مع الدعم للشحن.",
+  "walletLedger": "حركات المحفظة",
+  "walletLedgerEmpty": "لا توجد حركات بعد.",
+  "entryTopup": "شحن",
+  "entryCommission": "عمولة",
+  "entryCancellationFee": "رسوم إلغاء",
+  "entryAdjustment": "تسوية",
+  "entryRefund": "استرداد",
+  "entryReversal": "عكس قيد",
+  "entryOther": "حركة",
+  "entryBalanceAfter": "الرصيد: {balance}",
+  "@entryBalanceAfter": {
+    "placeholders": {
+      "balance": {
+        "type": "String"
+      }
+    }
+  },
   "devFillOtp": "تعبئة الرمز تلقائياً (وضع التطوير)",
   "devOtpUnavailable": "تعذّر جلب الرمز: {reason}",
   "@devOtpUnavailable": {

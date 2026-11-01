@@ -34,9 +34,7 @@ class OtpScreen extends StatelessWidget {
               // AuthBloc takes over; the router redirects to home.
               context.read<AuthBloc>().add(AuthLoggedIn(session));
             case OtpResent():
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(content: Text(context.l10n.otpResent)),
-              );
+              ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(context.l10n.otpResent)));
             case OtpEditing() ||
                 OtpVerifying() ||
                 OtpInvalidCode() ||
@@ -78,45 +76,53 @@ class _OtpBody extends StatelessWidget {
           OtpEditing() || OtpInvalidCode() || OtpResending() || OtpResent() || OtpFailed() => false,
         };
 
-        return Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            OtpCodeField(
-              code: state.code,
-              length: OtpPolicy.codeLength,
-              enabled: !locked,
-              hasError: message != null,
-              onChanged: (v) => bloc.add(OtpCodeChanged(v)),
-            ),
-            if (message != null) ...[
-              const SizedBox(height: 12),
-              Text(
-                message,
-                key: const ValueKey('otp-message'),
-                textAlign: TextAlign.center,
-                style: theme.textTheme.bodyMedium?.copyWith(color: theme.colorScheme.error),
+        // Pins the verify button to the bottom when there's room, and scrolls
+        // when there isn't (small phones, the keyboard, the dev button).
+        return LayoutBuilder(
+          builder: (context, constraints) => SingleChildScrollView(
+            child: ConstrainedBox(
+              constraints: BoxConstraints(minHeight: constraints.maxHeight),
+              child: IntrinsicHeight(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    OtpCodeField(
+                      code: state.code,
+                      length: OtpPolicy.codeLength,
+                      enabled: !locked,
+                      hasError: message != null,
+                      onChanged: (v) => bloc.add(OtpCodeChanged(v)),
+                    ),
+                    if (message != null) ...[
+                      const SizedBox(height: 12),
+                      Text(
+                        message,
+                        key: const ValueKey('otp-message'),
+                        textAlign: TextAlign.center,
+                        style: theme.textTheme.bodyMedium?.copyWith(color: theme.colorScheme.error),
+                      ),
+                    ],
+                    const SizedBox(height: 16),
+                    _ResendRow(state: state),
+                    // Constant-false in release: the compiler removes this branch.
+                    if (DevOtp.enabled) ...[
+                      const SizedBox(height: 16),
+                      DevOtpButton(phoneE164: bloc.phone, onCode: (code) => bloc.add(OtpCodeChanged(code))),
+                    ],
+                    const Spacer(),
+                    PrimaryButton(
+                      key: const ValueKey('verify'),
+                      label: l10n.otpVerify,
+                      loading: status is OtpVerifying || status is OtpVerified,
+                      onPressed: state.canSubmit ? () => bloc.add(const OtpSubmitted()) : null,
+                    ),
+                    const SizedBox(height: 8),
+                    TextButton(onPressed: () => context.pop(), child: Text(l10n.changeNumber)),
+                  ],
+                ),
               ),
-            ],
-            const SizedBox(height: 16),
-            _ResendRow(state: state),
-            // Constant-false in release: the compiler removes this branch.
-            if (DevOtp.enabled) ...[
-              const SizedBox(height: 16),
-              DevOtpButton(
-                phoneE164: bloc.phone,
-                onCode: (code) => bloc.add(OtpCodeChanged(code)),
-              ),
-            ],
-            const Spacer(),
-            PrimaryButton(
-              key: const ValueKey('verify'),
-              label: l10n.otpVerify,
-              loading: status is OtpVerifying || status is OtpVerified,
-              onPressed: state.canSubmit ? () => bloc.add(const OtpSubmitted()) : null,
             ),
-            const SizedBox(height: 8),
-            TextButton(onPressed: () => context.pop(), child: Text(l10n.changeNumber)),
-          ],
+          ),
         );
       },
     );
@@ -136,18 +142,14 @@ class _ResendRow extends StatelessWidget {
         l10n.otpResendIn(state.resendIn),
         key: const ValueKey('otp-countdown'),
         textAlign: TextAlign.center,
-        style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-          color: Theme.of(context).colorScheme.onSurfaceVariant,
-        ),
+        style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant),
       );
     }
     final resending = state.status is OtpResending;
     return Center(
       child: TextButton.icon(
         key: const ValueKey('otp-resend'),
-        onPressed: state.canResend
-            ? () => context.read<OtpBloc>().add(const OtpResendRequested())
-            : null,
+        onPressed: state.canResend ? () => context.read<OtpBloc>().add(const OtpResendRequested()) : null,
         icon: resending
             ? const SizedBox.square(dimension: 16, child: CircularProgressIndicator(strokeWidth: 2))
             : const Icon(Icons.refresh_rounded),

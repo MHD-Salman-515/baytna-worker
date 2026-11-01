@@ -67,6 +67,13 @@ class ApiClient {
     bool authenticated = true,
   }) async => decode((await _send('DELETE', path, body: body, authenticated: authenticated)).data);
 
+  Future<T> put<T>(
+    String path, {
+    required Decoder<T> decode,
+    Object? body,
+    bool authenticated = true,
+  }) async => decode((await _send('PUT', path, body: body, authenticated: authenticated)).data);
+
   /// POST multipart/form-data: [fields] as text parts and [file] under
   /// [fileField]. [onProgress] reports bytes sent.
   ///

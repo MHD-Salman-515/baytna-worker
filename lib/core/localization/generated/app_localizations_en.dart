@@ -517,24 +517,605 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get financialSuspendedBody =>
-      'Your wallet balance is past the allowed limit. You won\'t receive work offers until it is settled — even though your account is verified.';
+      'Your wallet balance is past the allowed limit. You won\'t get new requests until it\'s settled, but you can finish the jobs you already have.';
 
   @override
   String get financialUnknownBody =>
       'Your financial standing is unclear. Contact Baytna support.';
 
   @override
-  String get homeTitle => 'Home';
+  String get tabJobs => 'Jobs';
 
   @override
-  String get homeWelcome => 'Welcome — you\'re ready to work';
+  String get tabWork => 'My work';
 
   @override
-  String get homeComingSoon =>
-      'Bookings, offers and your wallet are coming in the next update';
+  String get tabWallet => 'Wallet';
 
   @override
-  String get homeSignedInAs => 'Signed in as';
+  String get loadMore => 'Load more';
+
+  @override
+  String get jobsTitle => 'My jobs';
+
+  @override
+  String jobsRequests(int count) {
+    return 'Requests ($count)';
+  }
+
+  @override
+  String jobsActive(int count) {
+    return 'Current ($count)';
+  }
+
+  @override
+  String get jobsHistory => 'Past';
+
+  @override
+  String get jobsRequestsEmpty =>
+      'No requests waiting for you right now. They appear here as they arrive.';
+
+  @override
+  String get jobsActiveEmpty => 'You have no accepted jobs right now.';
+
+  @override
+  String get jobsHistoryEmpty => 'No past jobs yet.';
+
+  @override
+  String get jobsExpiredNote => 'The time to answer this request ran out.';
+
+  @override
+  String get jobsBannerFinancial =>
+      'You are financially suspended: no new requests until your wallet is settled. Your current jobs carry on.';
+
+  @override
+  String get jobsBannerUnavailable =>
+      'You\'re set as unavailable, so you won\'t get new requests.';
+
+  @override
+  String get bookingStatusSearching => 'Searching';
+
+  @override
+  String get bookingStatusPending => 'Awaiting your answer';
+
+  @override
+  String get bookingStatusAccepted => 'Accepted';
+
+  @override
+  String get bookingStatusOnTheWay => 'On the way';
+
+  @override
+  String get bookingStatusArrived => 'Arrived';
+
+  @override
+  String get bookingStatusInProgress => 'Working';
+
+  @override
+  String get bookingStatusCompleted => 'Completed';
+
+  @override
+  String get bookingStatusRejected => 'Rejected';
+
+  @override
+  String get bookingStatusCancelled => 'Cancelled';
+
+  @override
+  String get bookingStatusExpired => 'Expired';
+
+  @override
+  String get bookingStatusNoShow => 'No-show';
+
+  @override
+  String get bookingStatusUnknown => 'Unknown';
+
+  @override
+  String bookingAnswerWithin(String time) {
+    return 'Answer within $time';
+  }
+
+  @override
+  String get bookingDeadlinePassed => 'The time to answer has run out';
+
+  @override
+  String bookingPlaceYourCity(String city) {
+    return '$city — in your city';
+  }
+
+  @override
+  String bookingPlaceOtherCity(String city, int km) {
+    return '$city — about $km km between the city centres';
+  }
+
+  @override
+  String get bookingHiddenUntilAccepted =>
+      'This is all that can be shown about the location for now. The exact address, distance and customer\'s number appear only after you accept.';
+
+  @override
+  String bookingFloor(String floor) {
+    return 'Floor: $floor';
+  }
+
+  @override
+  String get bookingOpenMap => 'Open map';
+
+  @override
+  String get bookingCannotOpen => 'Could not open that app';
+
+  @override
+  String bookingDuration(String duration) {
+    return 'Expected length: $duration';
+  }
+
+  @override
+  String get bookingCustomerNote => 'Note from the customer';
+
+  @override
+  String durationMinutes(int count) {
+    return '$count min';
+  }
+
+  @override
+  String durationHours(int count) {
+    return '$count h';
+  }
+
+  @override
+  String durationHoursMinutes(int hours, int minutes) {
+    return '$hours h $minutes min';
+  }
+
+  @override
+  String get bookingWorkingFor => 'Time worked so far';
+
+  @override
+  String get bookingEstimatedEarnings => 'Your estimated earnings';
+
+  @override
+  String get bookingEstimateFixed => 'After Baytna\'s commission.';
+
+  @override
+  String bookingEstimateHourly(String hours) {
+    return 'An estimate for $hours hours, after commission. The final figure is worked out from your actual time when you finish.';
+  }
+
+  @override
+  String get bookingEstimateHourlyNoHours =>
+      'An estimate after commission. The final figure is worked out from your actual time when you finish.';
+
+  @override
+  String bookingMinimumHours(int hours) {
+    String _temp0 = intl.Intl.pluralLogic(
+      hours,
+      locale: localeName,
+      other: '$hours hours',
+      one: '1 hour',
+    );
+    return 'The minimum is $_temp0.';
+  }
+
+  @override
+  String get bookingFinalEarnings => 'Your final earnings';
+
+  @override
+  String get bookingEstimateWas => 'The estimate was';
+
+  @override
+  String get bookingTimeWorked => 'Actual time worked';
+
+  @override
+  String get bookingHoursCharged => 'Hours charged';
+
+  @override
+  String get bookingCommissionCharged => 'Commission charged to your wallet';
+
+  @override
+  String bookingDifferenceMinimum(int hours) {
+    String _temp0 = intl.Intl.pluralLogic(
+      hours,
+      locale: localeName,
+      other: '$hours hours',
+      one: '1 hour',
+    );
+    return 'You worked less than your minimum, so your minimum ($_temp0) was charged instead of the estimated hours. This difference is expected; nothing was taken from you.';
+  }
+
+  @override
+  String get bookingDifferenceActualTime =>
+      'Hourly pay is worked out from the time you actually worked, not the length estimated at booking, which is why it differs from the estimate.';
+
+  @override
+  String get bookingDifferenceGeneric =>
+      'The final figure was set when the job finished, which is why it differs from the estimate.';
+
+  @override
+  String get bookingSeeWallet => 'See my wallet';
+
+  @override
+  String get bookingCancelledByCustomer =>
+      'The customer cancelled this booking';
+
+  @override
+  String get bookingCancelledByYou => 'You cancelled this booking';
+
+  @override
+  String get bookingAccept => 'Accept';
+
+  @override
+  String get bookingReject => 'Reject';
+
+  @override
+  String get bookingCannotAcceptSuspended =>
+      'You can\'t accept new requests until your wallet is settled.';
+
+  @override
+  String get bookingRejectTitle => 'Why are you rejecting this request?';
+
+  @override
+  String get bookingRejectConfirm => 'Reject request';
+
+  @override
+  String get reasonRejectFar => 'Too far away';
+
+  @override
+  String get reasonRejectBusy => 'I\'m busy at that time';
+
+  @override
+  String get reasonRejectNotSuitable => 'This job isn\'t right for me';
+
+  @override
+  String get reasonOther => 'Another reason';
+
+  @override
+  String get bookingCancelAction => 'Cancel this booking';
+
+  @override
+  String get bookingCancelTitle => 'Why are you cancelling this booking?';
+
+  @override
+  String get bookingCancelConfirm => 'Confirm cancellation';
+
+  @override
+  String bookingCancelPenalty(String amount) {
+    return '$amount will be charged to your wallet if you cancel.';
+  }
+
+  @override
+  String get reasonCancelEmergency => 'An emergency';
+
+  @override
+  String get reasonCancelTransport => 'I can\'t get there';
+
+  @override
+  String get reasonCancelCustomerAsked => 'The customer asked me to cancel';
+
+  @override
+  String get bookingStepOnTheWay => 'I\'m on my way';
+
+  @override
+  String get bookingStepArrived => 'I have arrived';
+
+  @override
+  String get bookingStepStart => 'Start work';
+
+  @override
+  String get bookingSwipeComplete => 'Swipe to finish the job';
+
+  @override
+  String get bookingCompleteHint =>
+      'Finishing sets your final pay and charges the commission to your wallet. This can\'t be undone.';
+
+  @override
+  String get bookingErrorExpired =>
+      'This request has expired and can no longer be answered.';
+
+  @override
+  String get bookingErrorCancelled => 'This booking was cancelled.';
+
+  @override
+  String get bookingErrorCompleted => 'This job is already completed.';
+
+  @override
+  String get bookingErrorStale =>
+      'This booking has changed, so the page has been updated to show where it stands now.';
+
+  @override
+  String get bookingErrorGate =>
+      'You can\'t accept new requests right now. Check your account and wallet status.';
+
+  @override
+  String get bookingErrorClash =>
+      'This time clashes with another of your jobs.';
+
+  @override
+  String get bookingErrorRefused =>
+      'This step can\'t be done right now. Please try again shortly.';
+
+  @override
+  String get bookingErrorNotFound => 'We can\'t find this booking any more.';
+
+  @override
+  String get workTitle => 'My work';
+
+  @override
+  String get workSchedule => 'Weekly schedule';
+
+  @override
+  String get workScheduleHint => 'When you can be booked';
+
+  @override
+  String get workServices => 'My services and prices';
+
+  @override
+  String get workNoServices =>
+      'You haven\'t added a service yet. Without one you can\'t be booked.';
+
+  @override
+  String get workAddService => 'Add a service';
+
+  @override
+  String get availabilityOn => 'I\'m available to work';
+
+  @override
+  String get availabilityOff => 'I\'m not available right now';
+
+  @override
+  String get availabilityIntentNote =>
+      'This is your choice: it only says you want to work. It isn\'t approval from Baytna and gives you no permissions.';
+
+  @override
+  String get availabilityNoEffectNow =>
+      'This setting has no effect right now, because your account can\'t receive new requests at the moment.';
+
+  @override
+  String get pricingHourly => 'Hourly';
+
+  @override
+  String get pricingBySize => 'By home size';
+
+  @override
+  String get pricingFixed => 'Fixed price';
+
+  @override
+  String get pricingHourlyExplain =>
+      'A rate per hour with a minimum number of hours. Final pay comes from the actual time.';
+
+  @override
+  String get pricingBySizeExplain => 'A price by number of rooms, in tiers.';
+
+  @override
+  String get pricingFixedExplain => 'One price for the whole job.';
+
+  @override
+  String priceSummaryHourly(String rate, int hours) {
+    String _temp0 = intl.Intl.pluralLogic(
+      hours,
+      locale: localeName,
+      other: '$hours hours',
+      one: '1 hour',
+    );
+    return '$rate an hour · $_temp0 minimum';
+  }
+
+  @override
+  String priceSummaryFixed(String price) {
+    return '$price fixed price';
+  }
+
+  @override
+  String priceSummaryBySize(String from, String to, int rooms) {
+    return '$from to $to · up to $rooms rooms';
+  }
+
+  @override
+  String get offeringPaused => 'Paused';
+
+  @override
+  String get offeringAddTitle => 'Add a service';
+
+  @override
+  String get offeringEditTitle => 'Edit service';
+
+  @override
+  String get offeringService => 'Service';
+
+  @override
+  String get offeringPricingModel => 'Pricing model';
+
+  @override
+  String offeringRange(String min, String max, String unit) {
+    return 'Allowed: $min to $max $unit';
+  }
+
+  @override
+  String get offeringRangePerHour => 'per hour';
+
+  @override
+  String get offeringRangePerJob => 'per job';
+
+  @override
+  String get offeringRangePerTier => 'per tier';
+
+  @override
+  String get offeringNoRange => 'No price range is set for this service yet.';
+
+  @override
+  String get offeringHourlyRate => 'Hourly rate';
+
+  @override
+  String get offeringFixedPrice => 'Fixed price';
+
+  @override
+  String get offeringMinHours => 'Minimum hours';
+
+  @override
+  String get offeringMinHoursHint =>
+      'If a job ends sooner, this minimum is charged.';
+
+  @override
+  String get offeringMinHoursInvalid => 'The minimum is at least 1 hour';
+
+  @override
+  String get offeringTierRooms => 'Up to (rooms)';
+
+  @override
+  String get offeringTierPrice => 'Price';
+
+  @override
+  String get offeringTierAdd => 'Add a tier';
+
+  @override
+  String get offeringTiersInvalid =>
+      'Put tiers in ascending order: each must cover more rooms than the one before.';
+
+  @override
+  String get offeringPriceMissing => 'Enter the price as a whole number';
+
+  @override
+  String offeringOutOfRange(String min, String max) {
+    return 'The price must be between $min and $max';
+  }
+
+  @override
+  String offeringCurrencyFixed(String currency) {
+    return 'Currency: $currency. It is set when the service is added and can\'t be changed.';
+  }
+
+  @override
+  String get offeringActive => 'Service is active';
+
+  @override
+  String get offeringActiveHint => 'Pause it without losing your prices.';
+
+  @override
+  String get offeringDelete => 'Delete service';
+
+  @override
+  String get offeringDeleteTitle => 'Delete this service?';
+
+  @override
+  String get offeringDeleteBody => 'Customers will no longer see it.';
+
+  @override
+  String get offeringSave => 'Save';
+
+  @override
+  String get offeringTypeNotAllowed =>
+      'This pricing model isn\'t available for this service.';
+
+  @override
+  String get offeringAlreadyExists =>
+      'You already offer this service. Edit it instead of adding it again.';
+
+  @override
+  String get scheduleTitle => 'Work schedule';
+
+  @override
+  String scheduleTimezone(String zone, String now) {
+    return 'All times are in your country\'s time ($zone), where it is now $now, whatever your phone is set to.';
+  }
+
+  @override
+  String get scheduleDayOff => 'Day off';
+
+  @override
+  String get scheduleAddRange => 'Another period';
+
+  @override
+  String get scheduleExceptions => 'Exceptions';
+
+  @override
+  String get scheduleExceptionsHint =>
+      'Days off or extra hours outside your usual week.';
+
+  @override
+  String get scheduleBlocked => 'Not working this day';
+
+  @override
+  String scheduleExtra(String range) {
+    return 'Extra hours $range';
+  }
+
+  @override
+  String get scheduleAddBlocked => 'Day off';
+
+  @override
+  String get scheduleAddExtra => 'Extra hours';
+
+  @override
+  String get scheduleOverlap => 'These periods overlap';
+
+  @override
+  String get scheduleRangeInvalid => 'A period must start before it ends';
+
+  @override
+  String get scheduleInvalid => 'Fix the marked times first';
+
+  @override
+  String get scheduleSave => 'Save schedule';
+
+  @override
+  String get scheduleSaved => 'Schedule saved';
+
+  @override
+  String get walletTitle => 'Wallet';
+
+  @override
+  String get walletBalance => 'Your balance';
+
+  @override
+  String walletRoomToFloor(String room, String floor) {
+    return '$room left before the floor ($floor). A negative balance is allowed down to that limit.';
+  }
+
+  @override
+  String walletPastFloor(String over, String floor) {
+    return 'You are $over past the floor ($floor).';
+  }
+
+  @override
+  String walletLowWarning(String threshold) {
+    return 'Your balance is low: $threshold or below. Top up before you reach the floor so requests don\'t stop.';
+  }
+
+  @override
+  String get walletBelowFloor =>
+      'Your balance is past the floor. New requests stop automatically until you top up, and resume automatically after.';
+
+  @override
+  String get walletTopupNote =>
+      'You can\'t top up in the app yet: Baytna staff record top-ups by hand after you pay them directly. Contact support to top up.';
+
+  @override
+  String get walletLedger => 'Wallet activity';
+
+  @override
+  String get walletLedgerEmpty => 'No activity yet.';
+
+  @override
+  String get entryTopup => 'Top-up';
+
+  @override
+  String get entryCommission => 'Commission';
+
+  @override
+  String get entryCancellationFee => 'Cancellation fee';
+
+  @override
+  String get entryAdjustment => 'Adjustment';
+
+  @override
+  String get entryRefund => 'Refund';
+
+  @override
+  String get entryReversal => 'Reversal';
+
+  @override
+  String get entryOther => 'Entry';
+
+  @override
+  String entryBalanceAfter(String balance) {
+    return 'Balance: $balance';
+  }
 
   @override
   String get devFillOtp => 'Autofill code (dev mode)';

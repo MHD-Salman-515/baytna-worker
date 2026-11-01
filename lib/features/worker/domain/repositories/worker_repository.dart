@@ -15,6 +15,9 @@ abstract interface class WorkerRepository {
 
   Future<Result<WorkerProfile>> updateProfile(ProfileInput input);
 
+  /// Her intent to work; it does nothing unless she is APPROVED.
+  Future<Result<WorkerProfile>> setAvailability({required bool isAvailable});
+
   /// DRAFT/REJECTED → PENDING_REVIEW. Fails with `MissingRequiredDocuments`.
   Future<Result<WorkerProfile>> submitForReview();
 }

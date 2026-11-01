@@ -965,7 +965,7 @@ abstract class AppLocalizations {
   /// No description provided for @financialSuspendedBody.
   ///
   /// In ar, this message translates to:
-  /// **'رصيد محفظتك تجاوز الحد المسموح. لن تصلك عروض عمل حتى تتم تسوية الرصيد، حتى لو كان حسابك موثّقاً.'**
+  /// **'رصيد محفظتك تجاوز الحد المسموح. لن تصلك طلبات جديدة حتى تتم تسوية الرصيد، ويمكنك إكمال عملك الحالي.'**
   String get financialSuspendedBody;
 
   /// No description provided for @financialUnknownBody.
@@ -974,29 +974,1001 @@ abstract class AppLocalizations {
   /// **'وضعك المالي غير واضح. تواصلي مع دعم بيتنا.'**
   String get financialUnknownBody;
 
-  /// No description provided for @homeTitle.
+  /// No description provided for @tabJobs.
   ///
   /// In ar, this message translates to:
-  /// **'الرئيسية'**
-  String get homeTitle;
+  /// **'الأعمال'**
+  String get tabJobs;
 
-  /// No description provided for @homeWelcome.
+  /// No description provided for @tabWork.
   ///
   /// In ar, this message translates to:
-  /// **'أهلاً بك، أنتِ جاهزة للعمل'**
-  String get homeWelcome;
+  /// **'عملي'**
+  String get tabWork;
 
-  /// No description provided for @homeComingSoon.
+  /// No description provided for @tabWallet.
   ///
   /// In ar, this message translates to:
-  /// **'الحجوزات والعروض والمحفظة قادمة في التحديث القادم'**
-  String get homeComingSoon;
+  /// **'المحفظة'**
+  String get tabWallet;
 
-  /// No description provided for @homeSignedInAs.
+  /// No description provided for @loadMore.
   ///
   /// In ar, this message translates to:
-  /// **'تم تسجيل الدخول بالرقم'**
-  String get homeSignedInAs;
+  /// **'تحميل المزيد'**
+  String get loadMore;
+
+  /// No description provided for @jobsTitle.
+  ///
+  /// In ar, this message translates to:
+  /// **'أعمالي'**
+  String get jobsTitle;
+
+  /// No description provided for @jobsRequests.
+  ///
+  /// In ar, this message translates to:
+  /// **'الطلبات ({count})'**
+  String jobsRequests(int count);
+
+  /// No description provided for @jobsActive.
+  ///
+  /// In ar, this message translates to:
+  /// **'الحالية ({count})'**
+  String jobsActive(int count);
+
+  /// No description provided for @jobsHistory.
+  ///
+  /// In ar, this message translates to:
+  /// **'السابقة'**
+  String get jobsHistory;
+
+  /// No description provided for @jobsRequestsEmpty.
+  ///
+  /// In ar, this message translates to:
+  /// **'لا توجد طلبات بانتظار ردك الآن. ستظهر هنا فور وصولها.'**
+  String get jobsRequestsEmpty;
+
+  /// No description provided for @jobsActiveEmpty.
+  ///
+  /// In ar, this message translates to:
+  /// **'لا توجد أعمال مقبولة حالياً.'**
+  String get jobsActiveEmpty;
+
+  /// No description provided for @jobsHistoryEmpty.
+  ///
+  /// In ar, this message translates to:
+  /// **'لا توجد أعمال سابقة بعد.'**
+  String get jobsHistoryEmpty;
+
+  /// No description provided for @jobsExpiredNote.
+  ///
+  /// In ar, this message translates to:
+  /// **'انتهت مهلة الرد على هذا الطلب.'**
+  String get jobsExpiredNote;
+
+  /// No description provided for @jobsBannerFinancial.
+  ///
+  /// In ar, this message translates to:
+  /// **'حسابك موقوف مالياً: لن تصلك طلبات جديدة حتى تتم تسوية محفظتك. أعمالك الحالية مستمرة.'**
+  String get jobsBannerFinancial;
+
+  /// No description provided for @jobsBannerUnavailable.
+  ///
+  /// In ar, this message translates to:
+  /// **'أنتِ غير متاحة الآن، فلن تصلك طلبات جديدة.'**
+  String get jobsBannerUnavailable;
+
+  /// No description provided for @bookingStatusSearching.
+  ///
+  /// In ar, this message translates to:
+  /// **'بحث'**
+  String get bookingStatusSearching;
+
+  /// No description provided for @bookingStatusPending.
+  ///
+  /// In ar, this message translates to:
+  /// **'بانتظار ردك'**
+  String get bookingStatusPending;
+
+  /// No description provided for @bookingStatusAccepted.
+  ///
+  /// In ar, this message translates to:
+  /// **'مقبول'**
+  String get bookingStatusAccepted;
+
+  /// No description provided for @bookingStatusOnTheWay.
+  ///
+  /// In ar, this message translates to:
+  /// **'في الطريق'**
+  String get bookingStatusOnTheWay;
+
+  /// No description provided for @bookingStatusArrived.
+  ///
+  /// In ar, this message translates to:
+  /// **'وصلتِ'**
+  String get bookingStatusArrived;
+
+  /// No description provided for @bookingStatusInProgress.
+  ///
+  /// In ar, this message translates to:
+  /// **'جارٍ العمل'**
+  String get bookingStatusInProgress;
+
+  /// No description provided for @bookingStatusCompleted.
+  ///
+  /// In ar, this message translates to:
+  /// **'مكتمل'**
+  String get bookingStatusCompleted;
+
+  /// No description provided for @bookingStatusRejected.
+  ///
+  /// In ar, this message translates to:
+  /// **'مرفوض'**
+  String get bookingStatusRejected;
+
+  /// No description provided for @bookingStatusCancelled.
+  ///
+  /// In ar, this message translates to:
+  /// **'ملغى'**
+  String get bookingStatusCancelled;
+
+  /// No description provided for @bookingStatusExpired.
+  ///
+  /// In ar, this message translates to:
+  /// **'منتهي المهلة'**
+  String get bookingStatusExpired;
+
+  /// No description provided for @bookingStatusNoShow.
+  ///
+  /// In ar, this message translates to:
+  /// **'لم يتم الحضور'**
+  String get bookingStatusNoShow;
+
+  /// No description provided for @bookingStatusUnknown.
+  ///
+  /// In ar, this message translates to:
+  /// **'غير معروف'**
+  String get bookingStatusUnknown;
+
+  /// No description provided for @bookingAnswerWithin.
+  ///
+  /// In ar, this message translates to:
+  /// **'أجيبي خلال {time}'**
+  String bookingAnswerWithin(String time);
+
+  /// No description provided for @bookingDeadlinePassed.
+  ///
+  /// In ar, this message translates to:
+  /// **'انتهت مهلة الرد'**
+  String get bookingDeadlinePassed;
+
+  /// No description provided for @bookingPlaceYourCity.
+  ///
+  /// In ar, this message translates to:
+  /// **'{city} — داخل مدينتك'**
+  String bookingPlaceYourCity(String city);
+
+  /// No description provided for @bookingPlaceOtherCity.
+  ///
+  /// In ar, this message translates to:
+  /// **'{city} — نحو {km} كم بين مركزَي المدينتين'**
+  String bookingPlaceOtherCity(String city, int km);
+
+  /// No description provided for @bookingHiddenUntilAccepted.
+  ///
+  /// In ar, this message translates to:
+  /// **'هذا كل ما يمكن معرفته عن الموقع الآن. العنوان الدقيق والمسافة ورقم العميل يظهرون بعد القبول فقط.'**
+  String get bookingHiddenUntilAccepted;
+
+  /// No description provided for @bookingFloor.
+  ///
+  /// In ar, this message translates to:
+  /// **'الطابق: {floor}'**
+  String bookingFloor(String floor);
+
+  /// No description provided for @bookingOpenMap.
+  ///
+  /// In ar, this message translates to:
+  /// **'فتح الخريطة'**
+  String get bookingOpenMap;
+
+  /// No description provided for @bookingCannotOpen.
+  ///
+  /// In ar, this message translates to:
+  /// **'تعذّر فتح التطبيق المطلوب'**
+  String get bookingCannotOpen;
+
+  /// No description provided for @bookingDuration.
+  ///
+  /// In ar, this message translates to:
+  /// **'المدة المتوقعة: {duration}'**
+  String bookingDuration(String duration);
+
+  /// No description provided for @bookingCustomerNote.
+  ///
+  /// In ar, this message translates to:
+  /// **'ملاحظة من العميل'**
+  String get bookingCustomerNote;
+
+  /// No description provided for @durationMinutes.
+  ///
+  /// In ar, this message translates to:
+  /// **'{count} د'**
+  String durationMinutes(int count);
+
+  /// No description provided for @durationHours.
+  ///
+  /// In ar, this message translates to:
+  /// **'{count} س'**
+  String durationHours(int count);
+
+  /// No description provided for @durationHoursMinutes.
+  ///
+  /// In ar, this message translates to:
+  /// **'{hours} س {minutes} د'**
+  String durationHoursMinutes(int hours, int minutes);
+
+  /// No description provided for @bookingWorkingFor.
+  ///
+  /// In ar, this message translates to:
+  /// **'مدة العمل حتى الآن'**
+  String get bookingWorkingFor;
+
+  /// No description provided for @bookingEstimatedEarnings.
+  ///
+  /// In ar, this message translates to:
+  /// **'أرباحك المتوقعة (تقديرية)'**
+  String get bookingEstimatedEarnings;
+
+  /// No description provided for @bookingEstimateFixed.
+  ///
+  /// In ar, this message translates to:
+  /// **'بعد خصم عمولة بيتنا.'**
+  String get bookingEstimateFixed;
+
+  /// No description provided for @bookingEstimateHourly.
+  ///
+  /// In ar, this message translates to:
+  /// **'تقدير لمدة {hours} س بعد خصم العمولة. الرقم النهائي يُحسب من وقت عملك الفعلي عند الإنهاء.'**
+  String bookingEstimateHourly(String hours);
+
+  /// No description provided for @bookingEstimateHourlyNoHours.
+  ///
+  /// In ar, this message translates to:
+  /// **'تقدير بعد خصم العمولة. الرقم النهائي يُحسب من وقت عملك الفعلي عند الإنهاء.'**
+  String get bookingEstimateHourlyNoHours;
+
+  /// No description provided for @bookingMinimumHours.
+  ///
+  /// In ar, this message translates to:
+  /// **'الحد الأدنى {hours, plural, =1{ساعة واحدة} =2{ساعتين} few{{hours} ساعات} other{{hours} ساعة}}.'**
+  String bookingMinimumHours(int hours);
+
+  /// No description provided for @bookingFinalEarnings.
+  ///
+  /// In ar, this message translates to:
+  /// **'أرباحك النهائية'**
+  String get bookingFinalEarnings;
+
+  /// No description provided for @bookingEstimateWas.
+  ///
+  /// In ar, this message translates to:
+  /// **'كان التقدير'**
+  String get bookingEstimateWas;
+
+  /// No description provided for @bookingTimeWorked.
+  ///
+  /// In ar, this message translates to:
+  /// **'وقت العمل الفعلي'**
+  String get bookingTimeWorked;
+
+  /// No description provided for @bookingHoursCharged.
+  ///
+  /// In ar, this message translates to:
+  /// **'الساعات المحتسبة'**
+  String get bookingHoursCharged;
+
+  /// No description provided for @bookingCommissionCharged.
+  ///
+  /// In ar, this message translates to:
+  /// **'العمولة المخصومة من محفظتك'**
+  String get bookingCommissionCharged;
+
+  /// No description provided for @bookingDifferenceMinimum.
+  ///
+  /// In ar, this message translates to:
+  /// **'عملتِ أقل من الحد الأدنى، فاحتُسب الحد الأدنى ({hours, plural, =1{ساعة واحدة} =2{ساعتين} few{{hours} ساعات} other{{hours} ساعة}}) بدل الساعات المقدّرة. هذا الفرق طبيعي وليس خصماً عليك.'**
+  String bookingDifferenceMinimum(int hours);
+
+  /// No description provided for @bookingDifferenceActualTime.
+  ///
+  /// In ar, this message translates to:
+  /// **'الأجر بالساعة يُحسب من وقت عملك الفعلي، لا من المدة المقدّرة عند الحجز، لذلك اختلف الرقم عن التقدير.'**
+  String get bookingDifferenceActualTime;
+
+  /// No description provided for @bookingDifferenceGeneric.
+  ///
+  /// In ar, this message translates to:
+  /// **'تحدد الرقم النهائي عند إنهاء العمل، لذلك اختلف عن التقدير.'**
+  String get bookingDifferenceGeneric;
+
+  /// No description provided for @bookingSeeWallet.
+  ///
+  /// In ar, this message translates to:
+  /// **'عرض محفظتي'**
+  String get bookingSeeWallet;
+
+  /// No description provided for @bookingCancelledByCustomer.
+  ///
+  /// In ar, this message translates to:
+  /// **'ألغى العميل هذا الحجز'**
+  String get bookingCancelledByCustomer;
+
+  /// No description provided for @bookingCancelledByYou.
+  ///
+  /// In ar, this message translates to:
+  /// **'ألغيتِ هذا الحجز'**
+  String get bookingCancelledByYou;
+
+  /// No description provided for @bookingAccept.
+  ///
+  /// In ar, this message translates to:
+  /// **'قبول'**
+  String get bookingAccept;
+
+  /// No description provided for @bookingReject.
+  ///
+  /// In ar, this message translates to:
+  /// **'رفض'**
+  String get bookingReject;
+
+  /// No description provided for @bookingCannotAcceptSuspended.
+  ///
+  /// In ar, this message translates to:
+  /// **'لا يمكنك قبول طلبات جديدة حتى تتم تسوية محفظتك.'**
+  String get bookingCannotAcceptSuspended;
+
+  /// No description provided for @bookingRejectTitle.
+  ///
+  /// In ar, this message translates to:
+  /// **'لماذا ترفضين هذا الطلب؟'**
+  String get bookingRejectTitle;
+
+  /// No description provided for @bookingRejectConfirm.
+  ///
+  /// In ar, this message translates to:
+  /// **'رفض الطلب'**
+  String get bookingRejectConfirm;
+
+  /// No description provided for @reasonRejectFar.
+  ///
+  /// In ar, this message translates to:
+  /// **'المكان بعيد'**
+  String get reasonRejectFar;
+
+  /// No description provided for @reasonRejectBusy.
+  ///
+  /// In ar, this message translates to:
+  /// **'لدي التزام في هذا الوقت'**
+  String get reasonRejectBusy;
+
+  /// No description provided for @reasonRejectNotSuitable.
+  ///
+  /// In ar, this message translates to:
+  /// **'الطلب غير مناسب لي'**
+  String get reasonRejectNotSuitable;
+
+  /// No description provided for @reasonOther.
+  ///
+  /// In ar, this message translates to:
+  /// **'سبب آخر'**
+  String get reasonOther;
+
+  /// No description provided for @bookingCancelAction.
+  ///
+  /// In ar, this message translates to:
+  /// **'إلغاء هذا الحجز'**
+  String get bookingCancelAction;
+
+  /// No description provided for @bookingCancelTitle.
+  ///
+  /// In ar, this message translates to:
+  /// **'لماذا تلغين هذا الحجز؟'**
+  String get bookingCancelTitle;
+
+  /// No description provided for @bookingCancelConfirm.
+  ///
+  /// In ar, this message translates to:
+  /// **'تأكيد الإلغاء'**
+  String get bookingCancelConfirm;
+
+  /// No description provided for @bookingCancelPenalty.
+  ///
+  /// In ar, this message translates to:
+  /// **'سيُخصم {amount} من محفظتك عند الإلغاء.'**
+  String bookingCancelPenalty(String amount);
+
+  /// No description provided for @reasonCancelEmergency.
+  ///
+  /// In ar, this message translates to:
+  /// **'ظرف طارئ'**
+  String get reasonCancelEmergency;
+
+  /// No description provided for @reasonCancelTransport.
+  ///
+  /// In ar, this message translates to:
+  /// **'تعذّر الوصول'**
+  String get reasonCancelTransport;
+
+  /// No description provided for @reasonCancelCustomerAsked.
+  ///
+  /// In ar, this message translates to:
+  /// **'طلب العميل الإلغاء'**
+  String get reasonCancelCustomerAsked;
+
+  /// No description provided for @bookingStepOnTheWay.
+  ///
+  /// In ar, this message translates to:
+  /// **'انطلقتُ إلى العميل'**
+  String get bookingStepOnTheWay;
+
+  /// No description provided for @bookingStepArrived.
+  ///
+  /// In ar, this message translates to:
+  /// **'وصلتُ'**
+  String get bookingStepArrived;
+
+  /// No description provided for @bookingStepStart.
+  ///
+  /// In ar, this message translates to:
+  /// **'بدء العمل'**
+  String get bookingStepStart;
+
+  /// No description provided for @bookingSwipeComplete.
+  ///
+  /// In ar, this message translates to:
+  /// **'اسحبي لإنهاء العمل'**
+  String get bookingSwipeComplete;
+
+  /// No description provided for @bookingCompleteHint.
+  ///
+  /// In ar, this message translates to:
+  /// **'عند الإنهاء يُحسب أجرك النهائي وتُخصم العمولة من محفظتك. لا يمكن التراجع.'**
+  String get bookingCompleteHint;
+
+  /// No description provided for @bookingErrorExpired.
+  ///
+  /// In ar, this message translates to:
+  /// **'انتهت مهلة هذا الطلب، ولم يعد بالإمكان الرد عليه.'**
+  String get bookingErrorExpired;
+
+  /// No description provided for @bookingErrorCancelled.
+  ///
+  /// In ar, this message translates to:
+  /// **'أُلغي هذا الحجز.'**
+  String get bookingErrorCancelled;
+
+  /// No description provided for @bookingErrorCompleted.
+  ///
+  /// In ar, this message translates to:
+  /// **'هذا العمل مكتمل بالفعل.'**
+  String get bookingErrorCompleted;
+
+  /// No description provided for @bookingErrorStale.
+  ///
+  /// In ar, this message translates to:
+  /// **'تغيّرت حالة هذا الحجز، وحدّثنا الصفحة لتعرضها كما هي الآن.'**
+  String get bookingErrorStale;
+
+  /// No description provided for @bookingErrorGate.
+  ///
+  /// In ar, this message translates to:
+  /// **'لا يمكنك قبول طلبات جديدة الآن. راجعي حالة حسابك ومحفظتك.'**
+  String get bookingErrorGate;
+
+  /// No description provided for @bookingErrorClash.
+  ///
+  /// In ar, this message translates to:
+  /// **'يتعارض هذا الموعد مع عمل آخر لديك.'**
+  String get bookingErrorClash;
+
+  /// No description provided for @bookingErrorRefused.
+  ///
+  /// In ar, this message translates to:
+  /// **'تعذّر تنفيذ هذه الخطوة الآن. حاولي مجدداً بعد قليل.'**
+  String get bookingErrorRefused;
+
+  /// No description provided for @bookingErrorNotFound.
+  ///
+  /// In ar, this message translates to:
+  /// **'لم نعد نجد هذا الحجز.'**
+  String get bookingErrorNotFound;
+
+  /// No description provided for @workTitle.
+  ///
+  /// In ar, this message translates to:
+  /// **'عملي'**
+  String get workTitle;
+
+  /// No description provided for @workSchedule.
+  ///
+  /// In ar, this message translates to:
+  /// **'جدول العمل الأسبوعي'**
+  String get workSchedule;
+
+  /// No description provided for @workScheduleHint.
+  ///
+  /// In ar, this message translates to:
+  /// **'متى تستقبلين الحجوزات'**
+  String get workScheduleHint;
+
+  /// No description provided for @workServices.
+  ///
+  /// In ar, this message translates to:
+  /// **'خدماتي وأسعاري'**
+  String get workServices;
+
+  /// No description provided for @workNoServices.
+  ///
+  /// In ar, this message translates to:
+  /// **'لم تضيفي أي خدمة بعد. بدون خدمة لا يمكن حجزك.'**
+  String get workNoServices;
+
+  /// No description provided for @workAddService.
+  ///
+  /// In ar, this message translates to:
+  /// **'إضافة خدمة'**
+  String get workAddService;
+
+  /// No description provided for @availabilityOn.
+  ///
+  /// In ar, this message translates to:
+  /// **'أنا متاحة للعمل'**
+  String get availabilityOn;
+
+  /// No description provided for @availabilityOff.
+  ///
+  /// In ar, this message translates to:
+  /// **'أنا غير متاحة الآن'**
+  String get availabilityOff;
+
+  /// No description provided for @availabilityIntentNote.
+  ///
+  /// In ar, this message translates to:
+  /// **'هذا اختيارك أنتِ ويعبّر عن رغبتك في العمل فقط، وليس موافقة من بيتنا ولا يمنحك أي صلاحية.'**
+  String get availabilityIntentNote;
+
+  /// No description provided for @availabilityNoEffectNow.
+  ///
+  /// In ar, this message translates to:
+  /// **'لن يكون لهذا الخيار أثر الآن، لأن حسابك لا يستطيع استقبال طلبات جديدة حالياً.'**
+  String get availabilityNoEffectNow;
+
+  /// No description provided for @pricingHourly.
+  ///
+  /// In ar, this message translates to:
+  /// **'بالساعة'**
+  String get pricingHourly;
+
+  /// No description provided for @pricingBySize.
+  ///
+  /// In ar, this message translates to:
+  /// **'حسب حجم المنزل'**
+  String get pricingBySize;
+
+  /// No description provided for @pricingFixed.
+  ///
+  /// In ar, this message translates to:
+  /// **'سعر ثابت'**
+  String get pricingFixed;
+
+  /// No description provided for @pricingHourlyExplain.
+  ///
+  /// In ar, this message translates to:
+  /// **'سعر لكل ساعة، مع حد أدنى من الساعات. يُحسب الأجر النهائي من الوقت الفعلي.'**
+  String get pricingHourlyExplain;
+
+  /// No description provided for @pricingBySizeExplain.
+  ///
+  /// In ar, this message translates to:
+  /// **'سعر حسب عدد الغرف، على شكل شرائح.'**
+  String get pricingBySizeExplain;
+
+  /// No description provided for @pricingFixedExplain.
+  ///
+  /// In ar, this message translates to:
+  /// **'سعر واحد للعمل كاملاً.'**
+  String get pricingFixedExplain;
+
+  /// No description provided for @priceSummaryHourly.
+  ///
+  /// In ar, this message translates to:
+  /// **'{rate} بالساعة · حد أدنى {hours, plural, =1{ساعة واحدة} =2{ساعتين} few{{hours} ساعات} other{{hours} ساعة}}'**
+  String priceSummaryHourly(String rate, int hours);
+
+  /// No description provided for @priceSummaryFixed.
+  ///
+  /// In ar, this message translates to:
+  /// **'{price} سعر ثابت'**
+  String priceSummaryFixed(String price);
+
+  /// No description provided for @priceSummaryBySize.
+  ///
+  /// In ar, this message translates to:
+  /// **'من {from} إلى {to} · حتى {rooms} غرف'**
+  String priceSummaryBySize(String from, String to, int rooms);
+
+  /// No description provided for @offeringPaused.
+  ///
+  /// In ar, this message translates to:
+  /// **'متوقفة مؤقتاً'**
+  String get offeringPaused;
+
+  /// No description provided for @offeringAddTitle.
+  ///
+  /// In ar, this message translates to:
+  /// **'إضافة خدمة'**
+  String get offeringAddTitle;
+
+  /// No description provided for @offeringEditTitle.
+  ///
+  /// In ar, this message translates to:
+  /// **'تعديل الخدمة'**
+  String get offeringEditTitle;
+
+  /// No description provided for @offeringService.
+  ///
+  /// In ar, this message translates to:
+  /// **'الخدمة'**
+  String get offeringService;
+
+  /// No description provided for @offeringPricingModel.
+  ///
+  /// In ar, this message translates to:
+  /// **'طريقة التسعير'**
+  String get offeringPricingModel;
+
+  /// No description provided for @offeringRange.
+  ///
+  /// In ar, this message translates to:
+  /// **'المسموح: من {min} إلى {max} {unit}'**
+  String offeringRange(String min, String max, String unit);
+
+  /// No description provided for @offeringRangePerHour.
+  ///
+  /// In ar, this message translates to:
+  /// **'للساعة'**
+  String get offeringRangePerHour;
+
+  /// No description provided for @offeringRangePerJob.
+  ///
+  /// In ar, this message translates to:
+  /// **'للعمل'**
+  String get offeringRangePerJob;
+
+  /// No description provided for @offeringRangePerTier.
+  ///
+  /// In ar, this message translates to:
+  /// **'لكل شريحة'**
+  String get offeringRangePerTier;
+
+  /// No description provided for @offeringNoRange.
+  ///
+  /// In ar, this message translates to:
+  /// **'لا يوجد نطاق سعر محدد لهذه الخدمة بعد.'**
+  String get offeringNoRange;
+
+  /// No description provided for @offeringHourlyRate.
+  ///
+  /// In ar, this message translates to:
+  /// **'السعر بالساعة'**
+  String get offeringHourlyRate;
+
+  /// No description provided for @offeringFixedPrice.
+  ///
+  /// In ar, this message translates to:
+  /// **'السعر الثابت'**
+  String get offeringFixedPrice;
+
+  /// No description provided for @offeringMinHours.
+  ///
+  /// In ar, this message translates to:
+  /// **'الحد الأدنى من الساعات'**
+  String get offeringMinHours;
+
+  /// No description provided for @offeringMinHoursHint.
+  ///
+  /// In ar, this message translates to:
+  /// **'إن انتهى العمل أبكر، يُحتسب هذا الحد.'**
+  String get offeringMinHoursHint;
+
+  /// No description provided for @offeringMinHoursInvalid.
+  ///
+  /// In ar, this message translates to:
+  /// **'الحد الأدنى ساعة واحدة على الأقل'**
+  String get offeringMinHoursInvalid;
+
+  /// No description provided for @offeringTierRooms.
+  ///
+  /// In ar, this message translates to:
+  /// **'حتى (غرف)'**
+  String get offeringTierRooms;
+
+  /// No description provided for @offeringTierPrice.
+  ///
+  /// In ar, this message translates to:
+  /// **'السعر'**
+  String get offeringTierPrice;
+
+  /// No description provided for @offeringTierAdd.
+  ///
+  /// In ar, this message translates to:
+  /// **'إضافة شريحة'**
+  String get offeringTierAdd;
+
+  /// No description provided for @offeringTiersInvalid.
+  ///
+  /// In ar, this message translates to:
+  /// **'رتّبي الشرائح تصاعدياً: كل شريحة تغطي غرفاً أكثر من التي قبلها.'**
+  String get offeringTiersInvalid;
+
+  /// No description provided for @offeringPriceMissing.
+  ///
+  /// In ar, this message translates to:
+  /// **'أدخلي السعر بأرقام صحيحة'**
+  String get offeringPriceMissing;
+
+  /// No description provided for @offeringOutOfRange.
+  ///
+  /// In ar, this message translates to:
+  /// **'السعر يجب أن يكون بين {min} و{max}'**
+  String offeringOutOfRange(String min, String max);
+
+  /// No description provided for @offeringCurrencyFixed.
+  ///
+  /// In ar, this message translates to:
+  /// **'العملة: {currency}. تُحدَّد عند إضافة الخدمة ولا يمكن تغييرها.'**
+  String offeringCurrencyFixed(String currency);
+
+  /// No description provided for @offeringActive.
+  ///
+  /// In ar, this message translates to:
+  /// **'الخدمة مفعّلة'**
+  String get offeringActive;
+
+  /// No description provided for @offeringActiveHint.
+  ///
+  /// In ar, this message translates to:
+  /// **'أوقفيها مؤقتاً دون حذف أسعارك.'**
+  String get offeringActiveHint;
+
+  /// No description provided for @offeringDelete.
+  ///
+  /// In ar, this message translates to:
+  /// **'حذف الخدمة'**
+  String get offeringDelete;
+
+  /// No description provided for @offeringDeleteTitle.
+  ///
+  /// In ar, this message translates to:
+  /// **'حذف هذه الخدمة؟'**
+  String get offeringDeleteTitle;
+
+  /// No description provided for @offeringDeleteBody.
+  ///
+  /// In ar, this message translates to:
+  /// **'لن تظهر للزبائن بعد الآن.'**
+  String get offeringDeleteBody;
+
+  /// No description provided for @offeringSave.
+  ///
+  /// In ar, this message translates to:
+  /// **'حفظ'**
+  String get offeringSave;
+
+  /// No description provided for @offeringTypeNotAllowed.
+  ///
+  /// In ar, this message translates to:
+  /// **'طريقة التسعير هذه غير متاحة لهذه الخدمة.'**
+  String get offeringTypeNotAllowed;
+
+  /// No description provided for @offeringAlreadyExists.
+  ///
+  /// In ar, this message translates to:
+  /// **'تقدّمين هذه الخدمة بالفعل. عدّليها بدل إضافتها مرة أخرى.'**
+  String get offeringAlreadyExists;
+
+  /// No description provided for @scheduleTitle.
+  ///
+  /// In ar, this message translates to:
+  /// **'جدول العمل'**
+  String get scheduleTitle;
+
+  /// No description provided for @scheduleTimezone.
+  ///
+  /// In ar, this message translates to:
+  /// **'كل الأوقات بتوقيت بلدك ({zone})، والساعة هناك الآن {now}، مهما كان توقيت هاتفك.'**
+  String scheduleTimezone(String zone, String now);
+
+  /// No description provided for @scheduleDayOff.
+  ///
+  /// In ar, this message translates to:
+  /// **'عطلة'**
+  String get scheduleDayOff;
+
+  /// No description provided for @scheduleAddRange.
+  ///
+  /// In ar, this message translates to:
+  /// **'فترة أخرى'**
+  String get scheduleAddRange;
+
+  /// No description provided for @scheduleExceptions.
+  ///
+  /// In ar, this message translates to:
+  /// **'أيام استثنائية'**
+  String get scheduleExceptions;
+
+  /// No description provided for @scheduleExceptionsHint.
+  ///
+  /// In ar, this message translates to:
+  /// **'أيام عطلة أو ساعات إضافية خارج جدولك المعتاد.'**
+  String get scheduleExceptionsHint;
+
+  /// No description provided for @scheduleBlocked.
+  ///
+  /// In ar, this message translates to:
+  /// **'لا أعمل هذا اليوم'**
+  String get scheduleBlocked;
+
+  /// No description provided for @scheduleExtra.
+  ///
+  /// In ar, this message translates to:
+  /// **'ساعات إضافية {range}'**
+  String scheduleExtra(String range);
+
+  /// No description provided for @scheduleAddBlocked.
+  ///
+  /// In ar, this message translates to:
+  /// **'يوم عطلة'**
+  String get scheduleAddBlocked;
+
+  /// No description provided for @scheduleAddExtra.
+  ///
+  /// In ar, this message translates to:
+  /// **'ساعات إضافية'**
+  String get scheduleAddExtra;
+
+  /// No description provided for @scheduleOverlap.
+  ///
+  /// In ar, this message translates to:
+  /// **'هذه الفترات متداخلة'**
+  String get scheduleOverlap;
+
+  /// No description provided for @scheduleRangeInvalid.
+  ///
+  /// In ar, this message translates to:
+  /// **'يجب أن تبدأ الفترة قبل نهايتها'**
+  String get scheduleRangeInvalid;
+
+  /// No description provided for @scheduleInvalid.
+  ///
+  /// In ar, this message translates to:
+  /// **'صحّحي الأوقات المعلّمة أولاً'**
+  String get scheduleInvalid;
+
+  /// No description provided for @scheduleSave.
+  ///
+  /// In ar, this message translates to:
+  /// **'حفظ الجدول'**
+  String get scheduleSave;
+
+  /// No description provided for @scheduleSaved.
+  ///
+  /// In ar, this message translates to:
+  /// **'تم حفظ جدولك'**
+  String get scheduleSaved;
+
+  /// No description provided for @walletTitle.
+  ///
+  /// In ar, this message translates to:
+  /// **'المحفظة'**
+  String get walletTitle;
+
+  /// No description provided for @walletBalance.
+  ///
+  /// In ar, this message translates to:
+  /// **'رصيدك'**
+  String get walletBalance;
+
+  /// No description provided for @walletRoomToFloor.
+  ///
+  /// In ar, this message translates to:
+  /// **'يبقى {room} قبل الوصول إلى الحد الأدنى ({floor}). الرصيد السالب مسموح حتى هذا الحد.'**
+  String walletRoomToFloor(String room, String floor);
+
+  /// No description provided for @walletPastFloor.
+  ///
+  /// In ar, this message translates to:
+  /// **'تجاوزتِ الحد الأدنى ({floor}) بمقدار {over}.'**
+  String walletPastFloor(String over, String floor);
+
+  /// No description provided for @walletLowWarning.
+  ///
+  /// In ar, this message translates to:
+  /// **'رصيدك منخفض: وصل إلى {threshold} أو أقل. اشحني المحفظة قبل بلوغ الحد الأدنى كي لا يتوقف استقبال الطلبات.'**
+  String walletLowWarning(String threshold);
+
+  /// No description provided for @walletBelowFloor.
+  ///
+  /// In ar, this message translates to:
+  /// **'تجاوز رصيدك الحد الأدنى. يتوقف استقبال الطلبات الجديدة تلقائياً حتى الشحن، ويعود تلقائياً بعده.'**
+  String get walletBelowFloor;
+
+  /// No description provided for @walletTopupNote.
+  ///
+  /// In ar, this message translates to:
+  /// **'لا يمكن شحن المحفظة من التطبيق حالياً: يسجّل فريق بيتنا الشحن يدوياً بعد الدفع له مباشرة. تواصلي مع الدعم للشحن.'**
+  String get walletTopupNote;
+
+  /// No description provided for @walletLedger.
+  ///
+  /// In ar, this message translates to:
+  /// **'حركات المحفظة'**
+  String get walletLedger;
+
+  /// No description provided for @walletLedgerEmpty.
+  ///
+  /// In ar, this message translates to:
+  /// **'لا توجد حركات بعد.'**
+  String get walletLedgerEmpty;
+
+  /// No description provided for @entryTopup.
+  ///
+  /// In ar, this message translates to:
+  /// **'شحن'**
+  String get entryTopup;
+
+  /// No description provided for @entryCommission.
+  ///
+  /// In ar, this message translates to:
+  /// **'عمولة'**
+  String get entryCommission;
+
+  /// No description provided for @entryCancellationFee.
+  ///
+  /// In ar, this message translates to:
+  /// **'رسوم إلغاء'**
+  String get entryCancellationFee;
+
+  /// No description provided for @entryAdjustment.
+  ///
+  /// In ar, this message translates to:
+  /// **'تسوية'**
+  String get entryAdjustment;
+
+  /// No description provided for @entryRefund.
+  ///
+  /// In ar, this message translates to:
+  /// **'استرداد'**
+  String get entryRefund;
+
+  /// No description provided for @entryReversal.
+  ///
+  /// In ar, this message translates to:
+  /// **'عكس قيد'**
+  String get entryReversal;
+
+  /// No description provided for @entryOther.
+  ///
+  /// In ar, this message translates to:
+  /// **'حركة'**
+  String get entryOther;
+
+  /// No description provided for @entryBalanceAfter.
+  ///
+  /// In ar, this message translates to:
+  /// **'الرصيد: {balance}'**
+  String entryBalanceAfter(String balance);
 
   /// No description provided for @devFillOtp.
   ///

@@ -32,4 +32,5 @@ WorkerProfileModel _$WorkerProfileModelFromJson(Map<String, dynamic> json) =>
       reviewedAt: json['reviewedAt'] == null
           ? null
           : DateTime.parse(json['reviewedAt'] as String),
+      isAvailable: json['isAvailable'] as bool? ?? false,
     );

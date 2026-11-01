@@ -17,6 +17,7 @@ class WorkerProfile extends Equatable {
     this.rejectionReason,
     this.submittedAt,
     this.reviewedAt,
+    this.isAvailable = false,
   });
 
   final String id;
@@ -44,9 +45,19 @@ class WorkerProfile extends Equatable {
   final DateTime? submittedAt;
   final DateTime? reviewedAt;
 
+  /// Her INTENT to work (PATCH /workers/me/availability). It grants nothing:
+  /// only the two gates below do.
+  final bool isAvailable;
+
   /// What the app requires before documents/submission. The backend itself
   /// only enforces documents at submit time.
   bool get isProfileComplete => cityId != null && languages.isNotEmpty && serviceAreas.isNotEmpty;
+
+  /// The two independent gates for NEW work. Clearing one never clears the
+  /// other. A job she has already accepted is NOT gated by this: a
+  /// financially suspended worker still finishes what she started.
+  bool get canTakeNewWork =>
+      verificationStatus.isApproved && financialStatus == FinancialStatus.active;
 
   @override
   List<Object?> get props => [
@@ -62,6 +73,7 @@ class WorkerProfile extends Equatable {
     rejectionReason,
     submittedAt,
     reviewedAt,
+    isAvailable,
   ];
 }
 

@@ -1,3 +1,4 @@
+import 'package:baytna_worker/core/geo/geo_point.dart';
 import 'package:baytna_worker/core/localization/localized_text.dart';
 import 'package:baytna_worker/features/cities/domain/entities/city.dart';
 import 'package:json_annotation/json_annotation.dart';
@@ -8,7 +9,7 @@ part 'city_model.g.dart';
 /// `{ countryId, name: {ar, en}, center: {type: "Point", coordinates}, isActive, id, … }`.
 @JsonSerializable(createToJson: false)
 class CityModel {
-  const CityModel({required this.id, required this.countryId, required this.name});
+  const CityModel({required this.id, required this.countryId, required this.name, this.center});
 
   factory CityModel.fromJson(Map<String, dynamic> json) => _$CityModelFromJson(json);
 
@@ -16,6 +17,8 @@ class CityModel {
   final String countryId;
   @JsonKey(fromJson: LocalizedText.fromJson)
   final LocalizedText name;
+  @JsonKey(fromJson: GeoPoint.tryFromGeoJson)
+  final GeoPoint? center;
 
-  City toEntity() => City(id: id, countryId: countryId, name: name);
+  City toEntity() => City(id: id, countryId: countryId, name: name, center: center);
 }

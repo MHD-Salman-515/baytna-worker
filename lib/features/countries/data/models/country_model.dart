@@ -14,6 +14,7 @@ class CountryModel {
     required this.phonePrefix,
     required this.currencyCode,
     required this.timezone,
+    this.walletPolicy = WalletPolicy.defaults,
   });
 
   factory CountryModel.fromJson(Map<String, dynamic> json) => _$CountryModelFromJson(json);
@@ -25,6 +26,8 @@ class CountryModel {
   final String phonePrefix;
   final String currencyCode;
   final String timezone;
+  @JsonKey(fromJson: WalletPolicy.fromJson)
+  final WalletPolicy walletPolicy;
 
   Country toEntity() => Country(
     id: id,
@@ -33,5 +36,6 @@ class CountryModel {
     phonePrefix: phonePrefix,
     currencyCode: currencyCode,
     timezone: timezone,
+    walletPolicy: walletPolicy,
   );
 }
