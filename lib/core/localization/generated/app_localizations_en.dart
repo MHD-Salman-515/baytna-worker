@@ -412,7 +412,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get statusSuspendedBody =>
-      'You can\'t work at the moment. Contact Baytna support to find out why and how to lift the suspension.';
+      'You can\'t take new work at the moment. Contact Baytna support to find out why and how to lift the suspension.';
 
   @override
   String get statusApprovedTitle => 'You\'re approved!';
@@ -617,18 +617,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get bookingDeadlinePassed => 'The time to answer has run out';
 
   @override
-  String bookingPlaceYourCity(String city) {
-    return '$city — in your city';
-  }
-
-  @override
-  String bookingPlaceOtherCity(String city, int km) {
-    return '$city — about $km km between the city centres';
-  }
-
-  @override
   String get bookingHiddenUntilAccepted =>
-      'This is all that can be shown about the location for now. The exact address, distance and customer\'s number appear only after you accept.';
+      'This is all that can be shown about the location for now. The exact address and the customer\'s number appear only after you accept.';
 
   @override
   String bookingFloor(String floor) {
@@ -742,10 +732,6 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get bookingReject => 'Reject';
-
-  @override
-  String get bookingCannotAcceptSuspended =>
-      'You can\'t accept new requests until your wallet is settled.';
 
   @override
   String get bookingRejectTitle => 'Why are you rejecting this request?';
@@ -1116,6 +1102,17 @@ class AppLocalizationsEn extends AppLocalizations {
   String entryBalanceAfter(String balance) {
     return 'Balance: $balance';
   }
+
+  @override
+  String get bookingCannotAcceptNow =>
+      'You can\'t accept new requests right now. Check your account and wallet status.';
+
+  @override
+  String get statusJobsInHand => 'Your current jobs carry on';
+
+  @override
+  String get statusJobsInHandBody =>
+      'A suspension only stops new work. You can finish what you started.';
 
   @override
   String get devFillOtp => 'Autofill code (dev mode)';

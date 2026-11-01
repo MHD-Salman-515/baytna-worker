@@ -66,14 +66,12 @@ String formatDuration(AppLocalizations l10n, Duration d) {
   return minutes == 0 ? l10n.durationHours(hours) : l10n.durationHoursMinutes(hours, minutes);
 }
 
-/// Where the job is, as honestly as can be said before the pin is revealed.
-String placeSummary(BuildContext context, Booking booking, BookingContext ctx, String? homeCityId) {
-  final l10n = context.l10n;
+/// The city, and nothing that reads like a distance: the pin is hidden until
+/// she accepts, and the app has no honest number for how far away it is. A
+/// server-side `distanceKm` goes next to this when it exists.
+String cityName(BuildContext context, Booking booking, BookingContext ctx) {
   final city = ctx.city(booking.cityId);
-  final name = city == null ? '' : context.localize(city.name);
-  if (booking.cityId == homeCityId) return l10n.bookingPlaceYourCity(name);
-  final km = ctx.kmBetweenCities(homeCityId, booking.cityId);
-  return km == null ? name : l10n.bookingPlaceOtherCity(name, km);
+  return city == null ? '' : context.localize(city.name);
 }
 
 String bookingFailureMessage(Failure failure, AppLocalizations l10n) => switch (failure) {

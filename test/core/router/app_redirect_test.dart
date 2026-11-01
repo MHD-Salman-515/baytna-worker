@@ -69,13 +69,28 @@ void main() {
       test('${v.name}: /home and unknown future routes → /status', () {
         expect(go(authed, _loaded(v), '/home'), '/status');
         expect(go(authed, _loaded(v), '/bookings'), '/status');
-        expect(go(authed, _loaded(v), '/bookings/b1'), '/status');
         expect(go(authed, _loaded(v), '/wallet'), '/status');
         expect(go(authed, _loaded(v), '/work'), '/status');
         expect(go(authed, _loaded(v), '/work/services/new'), '/status');
         expect(go(authed, _loaded(v), '/splash?from=%2Fhome'), '/status');
       });
     }
+
+    test('never-approved statuses hold no job, so a job screen stays closed', () {
+      for (final v in [VerificationStatus.draft, VerificationStatus.pendingReview]) {
+        expect(go(authed, _loaded(v), '/bookings/b1'), '/status');
+      }
+    });
+
+    test('suspended mid-job: she stays on the job, and only there', () {
+      for (final v in [VerificationStatus.suspended, VerificationStatus.rejected, VerificationStatus.unknown]) {
+        expect(go(authed, _loaded(v), '/bookings/b1'), isNull, reason: 'work in hand is never stranded');
+        expect(go(authed, _loaded(v), '/splash?from=%2Fbookings%2Fb1'), '/bookings/b1');
+        expect(go(authed, _loaded(v), '/bookings'), '/status', reason: 'the list stays closed');
+        expect(go(authed, _loaded(v), '/bookings/b1/x'), '/status');
+        expect(go(authed, _loaded(v), '/home'), '/status');
+      }
+    });
 
     test('DRAFT and REJECTED may edit profile and documents', () {
       for (final v in [VerificationStatus.draft, VerificationStatus.rejected]) {

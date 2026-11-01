@@ -120,7 +120,7 @@ class _Body extends StatelessWidget {
                   ),
                   const SizedBox(height: 16),
                 ],
-                _PlaceCard(booking: booking, ctx: ctx, homeCityId: profile.cityId),
+                _PlaceCard(booking: booking, ctx: ctx),
                 const SizedBox(height: 12),
                 _TimeCard(booking: booking, ctx: ctx),
                 const SizedBox(height: 12),
@@ -201,11 +201,10 @@ class _TripProgress extends StatelessWidget {
 /// Before acceptance the landmark and city are ALL there is, and the screen
 /// says so. After acceptance: street, floor, phone, map.
 class _PlaceCard extends StatelessWidget {
-  const _PlaceCard({required this.booking, required this.ctx, required this.homeCityId});
+  const _PlaceCard({required this.booking, required this.ctx});
 
   final Booking booking;
   final BookingContext ctx;
-  final String? homeCityId;
 
   Future<void> _open(BuildContext context, Uri uri) async {
     final messenger = ScaffoldMessenger.of(context);
@@ -249,7 +248,7 @@ class _PlaceCard extends StatelessWidget {
                       ),
                       const SizedBox(height: 4),
                       Text(
-                        placeSummary(context, booking, ctx, homeCityId),
+                        cityName(context, booking, ctx),
                         key: const ValueKey('booking-place'),
                         style: theme.textTheme.titleSmall?.copyWith(color: scheme.primary, fontWeight: FontWeight.w700),
                       ),
@@ -515,13 +514,16 @@ class _MoneyOutcome extends StatelessWidget {
             ),
           ),
         ),
-        const SizedBox(height: 12),
-        OutlinedButton.icon(
-          key: const ValueKey('see-wallet'),
-          onPressed: () => context.go(AppRoutes.wallet),
-          icon: const Icon(Icons.account_balance_wallet_outlined),
-          label: Text(l10n.bookingSeeWallet),
-        ),
+        // The wallet tab is closed if she was suspended mid-job.
+        if (context.read<WorkerBloc>().state case WorkerLoaded(:final profile) when profile.verificationStatus.isApproved) ...[
+          const SizedBox(height: 12),
+          OutlinedButton.icon(
+            key: const ValueKey('see-wallet'),
+            onPressed: () => context.go(AppRoutes.wallet),
+            icon: const Icon(Icons.account_balance_wallet_outlined),
+            label: Text(l10n.bookingSeeWallet),
+          ),
+        ],
       ],
     );
   }
@@ -671,7 +673,7 @@ class _Decision extends StatelessWidget {
       children: [
         if (!canAccept) ...[
           Text(
-            l10n.bookingCannotAcceptSuspended,
+            l10n.bookingCannotAcceptNow,
             key: const ValueKey('accept-blocked'),
             textAlign: TextAlign.center,
             style: theme.textTheme.bodyMedium?.copyWith(color: theme.colorScheme.error),

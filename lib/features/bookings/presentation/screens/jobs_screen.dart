@@ -103,21 +103,18 @@ class _JobsScreenState extends State<JobsScreen> {
                           bookings: state.requests,
                           empty: l10n.jobsRequestsEmpty,
                           ctx: state.context!,
-                          profile: profile,
                           onChanged: _refresh,
                         ),
                         _BookingList(
                           bookings: state.active,
                           empty: l10n.jobsActiveEmpty,
                           ctx: state.context!,
-                          profile: profile,
                           onChanged: _refresh,
                         ),
                         _BookingList(
                           bookings: state.history,
                           empty: l10n.jobsHistoryEmpty,
                           ctx: state.context!,
-                          profile: profile,
                           onChanged: _refresh,
                           hasMore: state.hasMoreHistory,
                           loadingMore: state.loadingMore,
@@ -176,7 +173,6 @@ class _BookingList extends StatelessWidget {
     required this.bookings,
     required this.empty,
     required this.ctx,
-    required this.profile,
     required this.onChanged,
     this.hasMore = false,
     this.loadingMore = false,
@@ -185,7 +181,6 @@ class _BookingList extends StatelessWidget {
   final List<Booking> bookings;
   final String empty;
   final BookingContext ctx;
-  final WorkerProfile profile;
   final VoidCallback onChanged;
   final bool hasMore;
   final bool loadingMore;
@@ -212,7 +207,7 @@ class _BookingList extends StatelessWidget {
               padding: const EdgeInsets.all(16),
               children: [
                 for (final booking in bookings) ...[
-                  _BookingCard(booking: booking, ctx: ctx, profile: profile, onChanged: onChanged),
+                  _BookingCard(booking: booking, ctx: ctx, onChanged: onChanged),
                   const SizedBox(height: 12),
                 ],
                 if (hasMore)
@@ -229,11 +224,10 @@ class _BookingList extends StatelessWidget {
 }
 
 class _BookingCard extends StatelessWidget {
-  const _BookingCard({required this.booking, required this.ctx, required this.profile, required this.onChanged});
+  const _BookingCard({required this.booking, required this.ctx, required this.onChanged});
 
   final Booking booking;
   final BookingContext ctx;
-  final WorkerProfile profile;
   final VoidCallback onChanged;
 
   @override
@@ -286,7 +280,7 @@ class _BookingCard extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(booking.address.landmark, style: theme.textTheme.titleSmall?.copyWith(fontWeight: FontWeight.w700)),
-                        Text(placeSummary(context, booking, ctx, profile.cityId), style: theme.textTheme.bodySmall),
+                        Text(cityName(context, booking, ctx), style: theme.textTheme.bodySmall),
                       ],
                     ),
                   ),

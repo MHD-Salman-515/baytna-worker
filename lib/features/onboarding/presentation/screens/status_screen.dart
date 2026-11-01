@@ -12,6 +12,8 @@ import 'package:baytna_worker/core/widgets/language_toggle_button.dart';
 import 'package:baytna_worker/core/widgets/page_scaffold.dart';
 import 'package:baytna_worker/core/widgets/primary_button.dart';
 import 'package:baytna_worker/features/auth/presentation/bloc/auth/auth_bloc.dart';
+import 'package:baytna_worker/features/bookings/domain/entities/booking.dart';
+import 'package:baytna_worker/features/bookings/presentation/widgets/booking_labels.dart';
 import 'package:baytna_worker/features/documents/domain/document_requirements.dart';
 import 'package:baytna_worker/features/documents/domain/entities/worker_document.dart';
 import 'package:baytna_worker/features/documents/presentation/widgets/document_labels.dart';
@@ -51,6 +53,7 @@ class _StatusScreenState extends State<StatusScreen> with RouteAware {
   void initState() {
     super.initState();
     _lifecycle = AppLifecycleListener(onResume: _refresh);
+    if (_canHoldJob) _status.add(const StatusJobsRequested());
     _poll = Timer.periodic(_pollInterval, (_) {
       final worker = context.read<WorkerBloc>().state;
       if (worker case WorkerLoaded(profile: WorkerProfile(verificationStatus: VerificationStatus.pendingReview))) {
@@ -84,7 +87,14 @@ class _StatusScreenState extends State<StatusScreen> with RouteAware {
     if (!mounted) return;
     context.read<WorkerBloc>().add(const WorkerRefreshRequested());
     _status.add(const StatusDocumentsRequested());
+    if (_canHoldJob) _status.add(const StatusJobsRequested());
   }
+
+  /// DRAFT and PENDING_REVIEW have never been approved, so they hold no job.
+  bool get _canHoldJob => switch (context.read<WorkerBloc>().state) {
+    WorkerLoaded(profile: WorkerProfile(verificationStatus: VerificationStatus.draft || VerificationStatus.pendingReview)) => false,
+    _ => true,
+  };
 
   @override
   Widget build(BuildContext context) {
@@ -177,6 +187,10 @@ class _StatusBody extends StatelessWidget {
           children: [
             _Headline(profile: profile, now: now),
             const SizedBox(height: 20),
+            if (state.jobsInHand.isNotEmpty) ...[
+              _JobsInHand(jobs: state.jobsInHand),
+              const SizedBox(height: 16),
+            ],
             if (status == VerificationStatus.rejected && profile.rejectionReason != null) ...[
               _RejectionNote(reason: profile.rejectionReason!),
               const SizedBox(height: 16),
@@ -301,6 +315,45 @@ class _Headline extends StatelessWidget {
     if (d.inDays >= 1) return l10n.statusWaitingDays(d.inDays);
     if (d.inHours >= 1) return l10n.statusWaitingHours(d.inHours);
     return l10n.statusWaitingMinutes(d.inMinutes);
+  }
+}
+
+/// Suspension blocks new work, never work in hand. Without this she has no
+/// way back to a job after restarting the app.
+class _JobsInHand extends StatelessWidget {
+  const _JobsInHand({required this.jobs});
+
+  final List<Booking> jobs;
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = context.l10n;
+    final theme = Theme.of(context);
+    final scheme = theme.colorScheme;
+    return DecoratedBox(
+      key: const ValueKey('jobs-in-hand'),
+      decoration: BoxDecoration(color: scheme.primaryContainer, borderRadius: BorderRadius.circular(12)),
+      child: Padding(
+        padding: const EdgeInsets.all(14),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Text(l10n.statusJobsInHand, style: theme.textTheme.titleSmall?.copyWith(fontWeight: FontWeight.w800)),
+            const SizedBox(height: 4),
+            Text(l10n.statusJobsInHandBody, style: theme.textTheme.bodyMedium),
+            for (final job in jobs) ...[
+              const SizedBox(height: 8),
+              FilledButton.icon(
+                key: ValueKey('job-in-hand-${job.bookingNumber}'),
+                onPressed: () => unawaited(context.push(AppRoutes.bookingFor(job.id))),
+                icon: const Icon(Icons.work_rounded),
+                label: Text('${job.address.landmark} · ${job.status.label(l10n)}', overflow: TextOverflow.ellipsis),
+              ),
+            ],
+          ],
+        ),
+      ),
+    );
   }
 }
 

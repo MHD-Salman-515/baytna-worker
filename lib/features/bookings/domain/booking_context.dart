@@ -22,16 +22,6 @@ class BookingContext {
   City? city(String id) => cities.where((c) => c.id == id).firstOrNull;
 
   Service? service(String id) => services.where((s) => s.id == id).firstOrNull;
-
-  /// Straight-line km between two CITY CENTRES, or null within one city or
-  /// when a centre is missing. Not her distance to the door: the pin is
-  /// hidden until she accepts.
-  int? kmBetweenCities(String? from, String to) {
-    if (from == null || from == to) return null;
-    final a = city(from)?.center;
-    final b = city(to)?.center;
-    return a == null || b == null ? null : a.distanceKmTo(b).round();
-  }
 }
 
 /// Loads [BookingContext] once per country.

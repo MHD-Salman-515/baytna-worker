@@ -15,6 +15,13 @@ import 'package:baytna_worker/features/worker/presentation/bloc/worker/worker_bl
 ///     DRAFT / REJECTED       → status, profile, documents
 ///     PENDING_REVIEW / SUSPENDED / unknown → status only
 /// * APPROVED → anything except auth, splash, apply and the onboarding steps.
+///
+/// Suspension blocks NEW work, never work in hand. Once she has been approved
+/// she can hold a job, and a status change mid-job must not strand her in a
+/// customer's home with no way to finish it. So SUSPENDED, REJECTED and
+/// unknown statuses also reach `/bookings/<id>`, which offers no new work
+/// (accepting is gated on `canTakeNewWork`); the status screen links her jobs.
+/// DRAFT and PENDING_REVIEW can't hold a job, so they stay closed.
 String? appRedirect(AuthState auth, WorkerState worker, Uri location) {
   final path = location.path;
   final atSplash = path == AppRoutes.splash;
@@ -55,11 +62,11 @@ String? appRedirect(AuthState auth, WorkerState worker, Uri location) {
 }
 
 bool Function(String path) _allowed(VerificationStatus status) => switch (status) {
-  VerificationStatus.draft || VerificationStatus.rejected => (p) =>
-      p == AppRoutes.status || p == AppRoutes.profile || p == AppRoutes.documents,
-  VerificationStatus.pendingReview ||
-  VerificationStatus.suspended ||
-  VerificationStatus.unknown => (p) => p == AppRoutes.status,
+  VerificationStatus.draft => (p) => p == AppRoutes.status || p == AppRoutes.profile || p == AppRoutes.documents,
+  VerificationStatus.rejected => (p) =>
+      p == AppRoutes.status || p == AppRoutes.profile || p == AppRoutes.documents || _isJob(p),
+  VerificationStatus.pendingReview => (p) => p == AppRoutes.status,
+  VerificationStatus.suspended || VerificationStatus.unknown => (p) => p == AppRoutes.status || _isJob(p),
   VerificationStatus.approved => (p) =>
       p != AppRoutes.splash &&
       !p.startsWith(AppRoutes.authPrefix) &&
@@ -67,5 +74,8 @@ bool Function(String path) _allowed(VerificationStatus status) => switch (status
       p != AppRoutes.profile &&
       p != AppRoutes.documents,
 };
+
+/// One job's screen, never the list or anything else under the prefix.
+bool _isJob(String path) => RegExp('^${AppRoutes.bookingPrefix}/[^/]+\$').hasMatch(path);
 
 bool _isLocal(String uri) => uri.startsWith('/') && !uri.startsWith('//');

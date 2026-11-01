@@ -168,6 +168,13 @@ void main() {
       expect(f, const IllegalTransition(BookingStatus.expired));
     });
 
+    test('a refused step on a job in hand is never reported as a gate on new work', () async {
+      final repo = _repo({
+        'POST /api/v1/workers/me/bookings/b1/complete': (_, _) async => FakeBackend.error(403, 'Worker is suspended'),
+      });
+      expect((await repo.perform(JobAction.complete, 'b1') as Err<Booking>).failure, isA<JobStepRefused>());
+    });
+
     test('gate, clash and anything else stay distinct, none showing backend text', () async {
       expect(await failWith(403, 'Worker is financially suspended'), isA<NotAllowedToAcceptWork>());
       expect(await failWith(400, 'Worker is not approved'), isA<NotAllowedToAcceptWork>());

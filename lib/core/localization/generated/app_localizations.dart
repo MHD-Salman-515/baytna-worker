@@ -767,7 +767,7 @@ abstract class AppLocalizations {
   /// No description provided for @statusSuspendedBody.
   ///
   /// In ar, this message translates to:
-  /// **'لا يمكنك العمل حالياً. تواصلي مع دعم بيتنا لمعرفة السبب وكيفية رفع الإيقاف.'**
+  /// **'لا يمكنك استقبال أعمال جديدة حالياً. تواصلي مع دعم بيتنا لمعرفة السبب وكيفية رفع الإيقاف.'**
   String get statusSuspendedBody;
 
   /// No description provided for @statusApprovedTitle.
@@ -1142,22 +1142,10 @@ abstract class AppLocalizations {
   /// **'انتهت مهلة الرد'**
   String get bookingDeadlinePassed;
 
-  /// No description provided for @bookingPlaceYourCity.
-  ///
-  /// In ar, this message translates to:
-  /// **'{city} — داخل مدينتك'**
-  String bookingPlaceYourCity(String city);
-
-  /// No description provided for @bookingPlaceOtherCity.
-  ///
-  /// In ar, this message translates to:
-  /// **'{city} — نحو {km} كم بين مركزَي المدينتين'**
-  String bookingPlaceOtherCity(String city, int km);
-
   /// No description provided for @bookingHiddenUntilAccepted.
   ///
   /// In ar, this message translates to:
-  /// **'هذا كل ما يمكن معرفته عن الموقع الآن. العنوان الدقيق والمسافة ورقم العميل يظهرون بعد القبول فقط.'**
+  /// **'هذا كل ما يمكن معرفته عن الموقع الآن. العنوان الدقيق ورقم العميل يظهران بعد القبول فقط.'**
   String get bookingHiddenUntilAccepted;
 
   /// No description provided for @bookingFloor.
@@ -1321,12 +1309,6 @@ abstract class AppLocalizations {
   /// In ar, this message translates to:
   /// **'رفض'**
   String get bookingReject;
-
-  /// No description provided for @bookingCannotAcceptSuspended.
-  ///
-  /// In ar, this message translates to:
-  /// **'لا يمكنك قبول طلبات جديدة حتى تتم تسوية محفظتك.'**
-  String get bookingCannotAcceptSuspended;
 
   /// No description provided for @bookingRejectTitle.
   ///
@@ -1969,6 +1951,24 @@ abstract class AppLocalizations {
   /// In ar, this message translates to:
   /// **'الرصيد: {balance}'**
   String entryBalanceAfter(String balance);
+
+  /// No description provided for @bookingCannotAcceptNow.
+  ///
+  /// In ar, this message translates to:
+  /// **'لا يمكنك قبول طلبات جديدة حالياً. راجعي حالة حسابك ومحفظتك.'**
+  String get bookingCannotAcceptNow;
+
+  /// No description provided for @statusJobsInHand.
+  ///
+  /// In ar, this message translates to:
+  /// **'أعمالك الحالية مستمرة'**
+  String get statusJobsInHand;
+
+  /// No description provided for @statusJobsInHandBody.
+  ///
+  /// In ar, this message translates to:
+  /// **'الإيقاف يمنع الأعمال الجديدة فقط. يمكنك إتمام ما بدأتِه.'**
+  String get statusJobsInHandBody;
 
   /// No description provided for @devFillOtp.
   ///

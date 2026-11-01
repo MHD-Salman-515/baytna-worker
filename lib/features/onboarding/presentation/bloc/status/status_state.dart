@@ -4,21 +4,28 @@ final class StatusState extends Equatable {
   const StatusState({
     this.documents = const StatusDocumentsLoading(),
     this.submit = const StatusSubmitIdle(),
+    this.jobsInHand = const [],
   });
 
   final StatusDocuments documents;
   final StatusSubmit submit;
+
+  /// Jobs accepted before her status changed.
+  final List<Booking> jobsInHand;
 
   List<WorkerDocument> get documentList => switch (documents) {
     StatusDocumentsLoaded(:final documents) => documents,
     StatusDocumentsLoading() || StatusDocumentsFailed() => const [],
   };
 
-  StatusState copyWith({StatusDocuments? documents, StatusSubmit? submit}) =>
-      StatusState(documents: documents ?? this.documents, submit: submit ?? this.submit);
+  StatusState copyWith({StatusDocuments? documents, StatusSubmit? submit, List<Booking>? jobsInHand}) => StatusState(
+    documents: documents ?? this.documents,
+    submit: submit ?? this.submit,
+    jobsInHand: jobsInHand ?? this.jobsInHand,
+  );
 
   @override
-  List<Object?> get props => [documents, submit];
+  List<Object?> get props => [documents, submit, jobsInHand];
 }
 
 sealed class StatusDocuments extends Equatable {

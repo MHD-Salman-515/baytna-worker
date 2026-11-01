@@ -409,7 +409,7 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get statusSuspendedBody =>
-      'لا يمكنك العمل حالياً. تواصلي مع دعم بيتنا لمعرفة السبب وكيفية رفع الإيقاف.';
+      'لا يمكنك استقبال أعمال جديدة حالياً. تواصلي مع دعم بيتنا لمعرفة السبب وكيفية رفع الإيقاف.';
 
   @override
   String get statusApprovedTitle => 'تم قبولك!';
@@ -611,18 +611,8 @@ class AppLocalizationsAr extends AppLocalizations {
   String get bookingDeadlinePassed => 'انتهت مهلة الرد';
 
   @override
-  String bookingPlaceYourCity(String city) {
-    return '$city — داخل مدينتك';
-  }
-
-  @override
-  String bookingPlaceOtherCity(String city, int km) {
-    return '$city — نحو $km كم بين مركزَي المدينتين';
-  }
-
-  @override
   String get bookingHiddenUntilAccepted =>
-      'هذا كل ما يمكن معرفته عن الموقع الآن. العنوان الدقيق والمسافة ورقم العميل يظهرون بعد القبول فقط.';
+      'هذا كل ما يمكن معرفته عن الموقع الآن. العنوان الدقيق ورقم العميل يظهران بعد القبول فقط.';
 
   @override
   String bookingFloor(String floor) {
@@ -739,10 +729,6 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get bookingReject => 'رفض';
-
-  @override
-  String get bookingCannotAcceptSuspended =>
-      'لا يمكنك قبول طلبات جديدة حتى تتم تسوية محفظتك.';
 
   @override
   String get bookingRejectTitle => 'لماذا ترفضين هذا الطلب؟';
@@ -1112,6 +1098,17 @@ class AppLocalizationsAr extends AppLocalizations {
   String entryBalanceAfter(String balance) {
     return 'الرصيد: $balance';
   }
+
+  @override
+  String get bookingCannotAcceptNow =>
+      'لا يمكنك قبول طلبات جديدة حالياً. راجعي حالة حسابك ومحفظتك.';
+
+  @override
+  String get statusJobsInHand => 'أعمالك الحالية مستمرة';
+
+  @override
+  String get statusJobsInHandBody =>
+      'الإيقاف يمنع الأعمال الجديدة فقط. يمكنك إتمام ما بدأتِه.';
 
   @override
   String get devFillOtp => 'تعبئة الرمز تلقائياً (وضع التطوير)';

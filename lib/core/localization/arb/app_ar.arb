@@ -190,7 +190,7 @@
   "statusRejectedReason": "ملاحظة فريق المراجعة",
   "statusDocumentsToReplace": "وثائق يجب استبدالها",
   "statusSuspendedTitle": "حسابك موقوف",
-  "statusSuspendedBody": "لا يمكنك العمل حالياً. تواصلي مع دعم بيتنا لمعرفة السبب وكيفية رفع الإيقاف.",
+  "statusSuspendedBody": "لا يمكنك استقبال أعمال جديدة حالياً. تواصلي مع دعم بيتنا لمعرفة السبب وكيفية رفع الإيقاف.",
   "statusApprovedTitle": "تم قبولك!",
   "statusApprovedBody": "حسابك موثّق ويمكنك البدء بالعمل.",
   "statusUnknownTitle": "تعذّر تحديد حالة طلبك",
@@ -274,26 +274,7 @@
     }
   },
   "bookingDeadlinePassed": "انتهت مهلة الرد",
-  "bookingPlaceYourCity": "{city} — داخل مدينتك",
-  "@bookingPlaceYourCity": {
-    "placeholders": {
-      "city": {
-        "type": "String"
-      }
-    }
-  },
-  "bookingPlaceOtherCity": "{city} — نحو {km} كم بين مركزَي المدينتين",
-  "@bookingPlaceOtherCity": {
-    "placeholders": {
-      "city": {
-        "type": "String"
-      },
-      "km": {
-        "type": "int"
-      }
-    }
-  },
-  "bookingHiddenUntilAccepted": "هذا كل ما يمكن معرفته عن الموقع الآن. العنوان الدقيق والمسافة ورقم العميل يظهرون بعد القبول فقط.",
+  "bookingHiddenUntilAccepted": "هذا كل ما يمكن معرفته عن الموقع الآن. العنوان الدقيق ورقم العميل يظهران بعد القبول فقط.",
   "bookingFloor": "الطابق: {floor}",
   "@bookingFloor": {
     "placeholders": {
@@ -380,7 +361,6 @@
   "bookingCancelledByYou": "ألغيتِ هذا الحجز",
   "bookingAccept": "قبول",
   "bookingReject": "رفض",
-  "bookingCannotAcceptSuspended": "لا يمكنك قبول طلبات جديدة حتى تتم تسوية محفظتك.",
   "bookingRejectTitle": "لماذا ترفضين هذا الطلب؟",
   "bookingRejectConfirm": "رفض الطلب",
   "reasonRejectFar": "المكان بعيد",
@@ -606,6 +586,9 @@
       }
     }
   },
+  "bookingCannotAcceptNow": "لا يمكنك قبول طلبات جديدة حالياً. راجعي حالة حسابك ومحفظتك.",
+  "statusJobsInHand": "أعمالك الحالية مستمرة",
+  "statusJobsInHandBody": "الإيقاف يمنع الأعمال الجديدة فقط. يمكنك إتمام ما بدأتِه.",
   "devFillOtp": "تعبئة الرمز تلقائياً (وضع التطوير)",
   "devOtpUnavailable": "تعذّر جلب الرمز: {reason}",
   "@devOtpUnavailable": {

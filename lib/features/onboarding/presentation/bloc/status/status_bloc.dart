@@ -1,5 +1,8 @@
 import 'package:baytna_worker/core/error/failure.dart';
+import 'package:baytna_worker/core/network/paged.dart';
 import 'package:baytna_worker/core/utils/result.dart';
+import 'package:baytna_worker/features/bookings/domain/entities/booking.dart';
+import 'package:baytna_worker/features/bookings/domain/repositories/booking_repository.dart';
 import 'package:baytna_worker/features/documents/domain/entities/worker_document.dart';
 import 'package:baytna_worker/features/documents/domain/repositories/document_repository.dart';
 import 'package:baytna_worker/features/worker/domain/entities/worker_profile.dart';
@@ -18,13 +21,15 @@ part 'status_state.dart';
 /// handed over by the screen (see StatusSubmitSucceeded).
 @injectable
 class StatusBloc extends Bloc<StatusEvent, StatusState> {
-  StatusBloc(this._workers, this._documents) : super(const StatusState()) {
+  StatusBloc(this._workers, this._documents, this._bookings) : super(const StatusState()) {
     on<StatusDocumentsRequested>(_onDocumentsRequested);
+    on<StatusJobsRequested>(_onJobsRequested);
     on<StatusSubmitRequested>(_onSubmitRequested);
   }
 
   final WorkerRepository _workers;
   final DocumentRepository _documents;
+  final BookingRepository _bookings;
 
   Future<void> _onDocumentsRequested(StatusDocumentsRequested event, Emitter<StatusState> emit) async {
     if (state.documents is! StatusDocumentsLoaded) emit(state.copyWith(documents: const StatusDocumentsLoading()));
@@ -37,6 +42,20 @@ class StatusBloc extends Bloc<StatusEvent, StatusState> {
           emit(state.copyWith(documents: StatusDocumentsFailed(failure)));
         }
     }
+  }
+
+  /// Accepted jobs she must still be able to finish, whatever her status.
+  /// A failure keeps the list she has: this must never hide a job.
+  Future<void> _onJobsRequested(StatusJobsRequested event, Emitter<StatusState> emit) async {
+    final results = await Future.wait([
+      for (final status in BookingStatus.activeJob) _bookings.list(status: status, limit: 100),
+    ]);
+    if (results.any((r) => r is Err)) return;
+    emit(
+      state.copyWith(
+        jobsInHand: [for (final r in results) ...(r as Ok<Paged<Booking>>).value.items],
+      ),
+    );
   }
 
   Future<void> _onSubmitRequested(StatusSubmitRequested event, Emitter<StatusState> emit) async {

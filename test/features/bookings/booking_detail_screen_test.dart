@@ -147,6 +147,45 @@ void main() {
     });
   });
 
+  group('verification suspended mid-job: CAN finish, exactly as with money', () {
+    const suspended = WorkerProfile(
+      id: 'w1',
+      countryId: 'sy',
+      cityId: 'damascus',
+      verificationStatus: VerificationStatus.suspended,
+      financialStatus: FinancialStatus.active,
+    );
+
+    for (final (status, key) in [('ACCEPTED', 'step-on-the-way'), ('ON_THE_WAY', 'step-arrived'), ('ARRIVED', 'step-start')]) {
+      testWidgets(status, (tester) async {
+        await show(tester, booking(status), suspended);
+        final button = find.descendant(of: find.byKey(ValueKey(key)), matching: find.byType(FilledButton));
+        expect(tester.widget<FilledButton>(button).onPressed, isNotNull);
+      });
+    }
+
+    testWidgets('IN_PROGRESS: the swipe is there', (tester) async {
+      await show(tester, booking('IN_PROGRESS', {'startedAt': '2026-11-01T11:00:00.000Z'}), suspended);
+      expect(find.byKey(const ValueKey('swipe-complete')), findsOneWidget);
+    });
+
+    testWidgets('COMPLETED: no way into the closed wallet tab', (tester) async {
+      await show(tester, booking('COMPLETED', {'startedAt': '2026-11-01T11:00:00.000Z', 'completedAt': '2026-11-01T13:00:00.000Z'}), suspended);
+      expect(find.byKey(const ValueKey('final-earnings')), findsOneWidget);
+      expect(find.byKey(const ValueKey('see-wallet')), findsNothing);
+    });
+
+    testWidgets("a NEW request still can't be accepted", (tester) async {
+      await show(tester, booking('PENDING_WORKER'), suspended);
+      expect(accept(tester).onPressed, isNull);
+    });
+  });
+
+  testWidgets('city only before accepting: nothing that reads like a distance', (tester) async {
+    await show(tester, booking('PENDING_WORKER'), _profile());
+    expect(find.textContaining('km'), findsNothing);
+  });
+
   testWidgets('deadline already past: no accepting into a 400', (tester) async {
     await show(tester, booking('PENDING_WORKER', {'responseDeadline': '2026-11-01T11:59:00.000Z'}), _profile());
     expect(find.byKey(const ValueKey('accept-booking')), findsNothing);

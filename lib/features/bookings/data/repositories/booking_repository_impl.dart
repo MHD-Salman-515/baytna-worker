@@ -48,8 +48,12 @@ class BookingRepositoryImpl implements BookingRepository {
   }
 
   @override
-  Future<Result<Booking>> perform(JobAction action, String id) =>
-      _act(id, action.target, () => _remote.perform(action, id));
+  Future<Result<Booking>> perform(JobAction action, String id) => _act(
+    id,
+    action.target,
+    () => _remote.perform(action, id),
+    gated: action == JobAction.accept,
+  );
 
   @override
   Future<Result<Booking>> reject(String id, String reason) =>
@@ -59,7 +63,14 @@ class BookingRepositoryImpl implements BookingRepository {
   Future<Result<Booking>> cancel(String id, String reason) =>
       _act(id, BookingStatus.cancelled, () => _remote.cancel(id, reason));
 
-  Future<Result<Booking>> _act(String id, BookingStatus target, Future<Booking?> Function() post) async {
+  /// [gated]: only ACCEPTING is new work, so only there may a refusal be read
+  /// as the two gates. A refused step on a job in hand is something else.
+  Future<Result<Booking>> _act(
+    String id,
+    BookingStatus target,
+    Future<Booking?> Function() post, {
+    bool gated = false,
+  }) async {
     final result = await guard(post);
     switch (result) {
       case Ok(:final value):
@@ -79,7 +90,7 @@ class BookingRepositoryImpl implements BookingRepository {
         }
         return Err(failure);
       case Err(:final failure):
-        return Err(_mapped(failure));
+        return Err(_mapped(failure, gated: gated));
     }
   }
 
@@ -93,14 +104,15 @@ class BookingRepositoryImpl implements BookingRepository {
 
   /// Observed: "Cannot ACCEPT a booking from status EXPIRED to ACCEPTED
   /// (requires current status to be one of: PENDING_WORKER)".
-  static Failure _mapped(Failure f) {
+  static Failure _mapped(Failure f, {required bool gated}) {
     switch (f) {
       case ValidationFailure(:final messages):
         final message = messages.join(' ');
         final from = _fromStatus.firstMatch(message);
         if (from != null) return IllegalTransition(BookingStatus.fromApi(from[1]), f.debugMessage);
-        return _isGate(message) ? NotAllowedToAcceptWork(f.debugMessage) : JobStepRefused(f.debugMessage);
+        return gated && _isGate(message) ? NotAllowedToAcceptWork(f.debugMessage) : JobStepRefused(f.debugMessage);
       case UnauthorizedFailure(:final debugMessage):
+        if (!gated) return JobStepRefused(debugMessage);
         return _isGate(debugMessage ?? '') ? NotAllowedToAcceptWork(debugMessage) : f;
       case NotFoundFailure(:final debugMessage):
         return BookingNotFound(debugMessage);
