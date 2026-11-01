@@ -206,7 +206,7 @@ void main() {
     final number = find.textContaining('+963955500101');
     expect(number, findsOneWidget);
     expect(tester.widget<Text>(number).overflow, isNot(TextOverflow.ellipsis));
-    expect(tester.getSize(find.byKey(const ValueKey('call-customer'))).width, greaterThan(350));
+    expect(tester.getSize(find.byKey(const ValueKey('call-customer'))).width, tester.getSize(find.byKey(const ValueKey('open-map'))).width);
     expect(find.byKey(const ValueKey('open-map')), findsOneWidget);
   });
 
