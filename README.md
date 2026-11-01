@@ -49,9 +49,11 @@ and are never merged into a single "account status".
 **Two independent gates decide what she can do**, and clearing one never clears
 the other: `verificationStatus` must be APPROVED (the router enforces it) and
 `financialStatus` must be ACTIVE. `WorkerProfile.canTakeNewWork` is the check
-for NEW work only. A financially suspended worker can't accept, but **every
-step of a job she already holds keeps working**, and she can still reach her
-wallet to settle. `booking_detail_screen_test.dart` pins this per status.
+for NEW work only. **Suspension of either kind blocks new work, never work in
+hand:** every step of a job she already holds keeps working. If her verification
+is suspended mid-job, the router keeps `/bookings/<id>` open (and only that) and
+the status screen lists her jobs, so a restart can't strand her.
+`booking_detail_screen_test.dart` pins this per status for both gates.
 
 ### Onboarding flow
 
@@ -123,9 +125,9 @@ wallet to settle. `booking_detail_screen_test.dart` pins this per status.
 - **Availability is intent.** The switch says it isn't approval, and says when
   it has no effect.
 - **The decision is honest.** Before she accepts, the backend sends only the
-  landmark, so the card leads with it and says what's hidden. A true distance
-  is impossible (see [Backend gaps](#backend-gaps)). It shows "in your city", or
-  km between CITY CENTRES, labelled as such.
+  landmark, so the card leads with it, then the city, and says what's hidden.
+  There is deliberately no distance: nothing the app could compute is a real
+  one (see [Backend gaps](#backend-gaps)). A server-side `distanceKm` goes here.
 - **Deadlines tick.** `responseDeadline` counts down live. At zero the answer
   buttons go and the booking reloads.
 - **One legal step.** `JobAction.next(status)` is the only button offered, so
@@ -143,9 +145,9 @@ wallet to settle. `booking_detail_screen_test.dart` pins this per status.
   computes no money: every figure comes from the server.
 - **Complete is a swipe.** `SwipeToConfirm`: a tap does nothing, an early release
   springs back, and screen readers get a labelled action.
-- **Money is `int` + currency.** `Money` has no doubles. `moneyFromJson` THROWS
-  on a fractional amount rather than round someone's pay. Amounts are shown as
-  sent, in whole currency units, matching the customer app.
+- **Money is `int` + currency.** The backend stores whole SYP/IQD (neither has
+  fractional units), and `Money` has no doubles. `moneyFromJson` THROWS on a
+  fractional amount rather than round someone's pay.
 - **Wallet.** A negative balance is normal, so the card leads with room left
   before the floor and warns at `lowBalanceWarningThreshold`. Suspension is read
   from the profile, never inferred from the balance. Top-up is stated as
@@ -307,11 +309,9 @@ Observed against staging on 2026-10-26. None of this is in Swagger.
 
 ## Backend gaps
 
-1. **No distance before acceptance.** The brief wanted distance prominent at
-   decision time, but the worker projection has no pin and no distance, and the
-   app has no location of hers this phase. Fix: add a server-computed
-   `distanceKm` (from her home or last location to the pin, without exposing
-   the pin).
+1. **No distance before acceptance.** The worker projection has no pin and no
+   distance, so the app shows the city only. Planned: a server-computed
+   `distanceKm` that doesn't expose the pin.
 2. **No single-booking GET for workers.** `GET /bookings/:id` is 404 for her and
    `/workers/me/bookings/:id` doesn't exist, so detail walks her list.
 3. **Wallet lacks floor and status** (see above): the app joins country policy

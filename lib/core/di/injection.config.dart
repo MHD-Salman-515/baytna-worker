@@ -271,14 +271,15 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i781.CityRepository>(
       () => _i538.CityRepositoryImpl(gh<_i602.CityRemoteDataSource>()),
     );
+    gh.factory<_i317.CountriesBloc>(
+      () => _i317.CountriesBloc(gh<_i485.CountryRepository>()),
+    );
     gh.factory<_i126.StatusBloc>(
       () => _i126.StatusBloc(
         gh<_i690.WorkerRepository>(),
         gh<_i274.DocumentRepository>(),
+        gh<_i783.BookingRepository>(),
       ),
-    );
-    gh.factory<_i317.CountriesBloc>(
-      () => _i317.CountriesBloc(gh<_i485.CountryRepository>()),
     );
     gh.factoryParam<_i328.AvailabilityBloc, String, dynamic>(
       (countryId, _) => _i328.AvailabilityBloc(

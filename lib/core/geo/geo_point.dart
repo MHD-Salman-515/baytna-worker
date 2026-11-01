@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:equatable/equatable.dart';
 
 /// A WGS84 position. The backend speaks GeoJSON, whose coordinate order is
@@ -18,16 +16,6 @@ class GeoPoint extends Equatable {
 
   final double latitude;
   final double longitude;
-
-  /// Great-circle distance in kilometres.
-  double distanceKmTo(GeoPoint other) {
-    const earthRadiusKm = 6371.0;
-    double rad(double deg) => deg * pi / 180;
-    final dLat = rad(other.latitude - latitude);
-    final dLng = rad(other.longitude - longitude);
-    final a = pow(sin(dLat / 2), 2) + cos(rad(latitude)) * cos(rad(other.latitude)) * pow(sin(dLng / 2), 2);
-    return 2 * earthRadiusKm * asin(sqrt(a));
-  }
 
   @override
   List<Object?> get props => [latitude, longitude];
