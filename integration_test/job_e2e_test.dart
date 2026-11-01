@@ -101,7 +101,7 @@ void main() {
       await e.settle(const Duration(seconds: 3));
       e.log('WALLET ${e.textOf('wallet-balance')} — ${e.textOf('wallet-room')}');
       if (key('wallet-warning').evaluate().isNotEmpty) e.log('WARNING ${e.textOf('wallet-warning')}');
-      expect(key('entry-COMMISSION_CHARGE'), findsOneWidget);
+      expect(key('entry-COMMISSION_CHARGE'), findsWidgets);
       await e.shot('j10-wallet-ledger');
     } finally {
       e.stopLogging();

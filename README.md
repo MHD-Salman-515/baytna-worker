@@ -305,7 +305,11 @@ Observed against staging on 2026-10-26. None of this is in Swagger.
 | Illegal step | 400 "Cannot ACCEPT a booking from status EXPIRED to ACCEPTED (requires current status to be one of: PENDING_WORKER)". Cancel: ACCEPTED, ON_THE_WAY, ARRIVED only |
 | `reject`, `cancel` | Without a reason: 400 "reason should not be empty" |
 | `GET /workers/me/wallet` | `{ _id, workerProfileId, countryId, balance, currency }` only. **No floor, no status** |
-| `GET /workers/me/wallet/entries` | Paged, `limit` ≤ 100, no `type` filter |
+| `GET /workers/me/wallet/entries` | Paged, `limit` ≤ 100, no `type` filter, newest first. Raw documents: `{ _id, walletId, bookingId, type, amount, currency, balanceAfter, idempotencyKey, createdBy, reversesEntryId, createdAt }`. `amount` is signed (charges negative) |
+| After acceptance | `address` gains `point`, `text`, `floor`, `notes`; `customerPhone` is set. Both stay on the booking after completion |
+| After completion | `finalPricing` has the same shape as `pricing`: `{ pricingType, hours, roomCount, workerEarnings, currency }`. No commission field: that's the ledger line, matched by `bookingId` |
+| HOURLY completion (observed) | 3 h estimate at 6,000 finished after 21 min → `hours: 2` (`minHours`), `workerEarnings` 10,200, commission 1,800 (15% of 12,000). A price from time above `minHours` hasn't been observed yet |
+| Timing of steps | on-the-way, arrived, start and complete have no time check: a job booked for tomorrow ran today |
 
 ## Backend gaps
 
@@ -317,3 +321,8 @@ Observed against staging on 2026-10-26. None of this is in Swagger.
 3. **Wallet lacks floor and status** (see above): the app joins country policy
    and the profile.
 4. **Malformed ids return 500** (`DELETE /workers/me/documents/zzz`).
+5. **Steps aren't tied to the scheduled time.** She can start tomorrow's job
+   today, and hourly pay runs from `start`.
+6. **Not yet observed:** whether the server lets a verification-suspended worker
+   run job steps. The app keeps the job reachable; if the server refuses, she
+   sees a clear failure, and this needs a backend check.

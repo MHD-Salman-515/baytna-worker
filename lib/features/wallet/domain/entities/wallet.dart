@@ -43,7 +43,6 @@ class WalletEntry extends Equatable {
     required this.createdAt,
     this.balanceAfter,
     this.bookingId,
-    this.note,
   });
 
   final String id;
@@ -55,12 +54,11 @@ class WalletEntry extends Equatable {
   /// Running balance after this line.
   final int? balanceAfter;
   final String? bookingId;
-  final String? note;
 
   Money get money => Money(amount, currency);
 
   @override
-  List<Object?> get props => [id, type, amount, currency, createdAt, balanceAfter, bookingId, note];
+  List<Object?> get props => [id, type, amount, currency, createdAt, balanceAfter, bookingId];
 }
 
 enum WalletHealth {

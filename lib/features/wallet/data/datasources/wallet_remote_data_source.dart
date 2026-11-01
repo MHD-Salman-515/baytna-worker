@@ -26,16 +26,18 @@ class WalletRemoteDataSource {
     decodeItem: _entry,
   );
 
-  /// ⚠ UNVERIFIED: her ledger is still empty on staging, so these field names
-  /// are the expected ones and alternates, not yet observed.
+  /// Verified on staging (a real COMMISSION_CHARGE): raw documents, so `_id`.
+  /// `{ _id, walletId, bookingId, type, amount, currency, balanceAfter,
+  ///    idempotencyKey, createdBy, reversesEntryId, createdAt }`, with `amount`
+  /// signed (charges negative). Admin lines may also carry a reason or
+  /// reference, which aren't seen yet and so aren't relied on.
   static WalletEntry _entry(Json json) => WalletEntry(
-    id: (json['id'] ?? json['_id']) as String,
+    id: json['_id'] as String,
     type: WalletEntryType.fromApi(json['type']),
     amount: moneyFromJson(json['amount']),
     currency: json['currency'] as String? ?? '',
     createdAt: DateTime.parse(json['createdAt'] as String),
-    balanceAfter: moneyFromJsonOrNull(json['balanceAfter'] ?? json['runningBalance']),
+    balanceAfter: moneyFromJsonOrNull(json['balanceAfter']),
     bookingId: json['bookingId'] as String?,
-    note: (json['note'] ?? json['reason'] ?? json['reference']) as String?,
   );
 }
