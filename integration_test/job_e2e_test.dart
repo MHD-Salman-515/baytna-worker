@@ -19,7 +19,8 @@ import 'support.dart';
 void main() {
   final binding = IntegrationTestWidgetsFlutterBinding.ensureInitialized();
   const phone = String.fromEnvironment('E2E_PHONE');
-  final workSeconds = const int.fromEnvironment('E2E_WORK_SECONDS');
+  const workSecondsDefine = String.fromEnvironment('E2E_WORK_SECONDS');
+  final workSeconds = int.tryParse(workSecondsDefine) ?? 0;
 
   testWidgets('full job', (tester) async {
     final e = E2E(binding, tester)..startLogging();
