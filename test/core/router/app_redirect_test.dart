@@ -19,7 +19,19 @@ void main() {
 
   /// Every route the app has, plus one that doesn't exist yet (a future
   /// "work" route) — the allow-list must cover it by default.
-  const everyRoute = ['/status', '/status/profile', '/status/documents', '/home', '/apply', '/bookings'];
+  const everyRoute = [
+    '/status',
+    '/status/profile',
+    '/status/documents',
+    '/home',
+    '/work',
+    '/work/availability',
+    '/work/services/new',
+    '/wallet',
+    '/bookings/b1',
+    '/apply',
+    '/bookings',
+  ];
 
   group('session', () {
     test('unknown session → splash, remembering the target', () {
@@ -57,6 +69,10 @@ void main() {
       test('${v.name}: /home and unknown future routes → /status', () {
         expect(go(authed, _loaded(v), '/home'), '/status');
         expect(go(authed, _loaded(v), '/bookings'), '/status');
+        expect(go(authed, _loaded(v), '/bookings/b1'), '/status');
+        expect(go(authed, _loaded(v), '/wallet'), '/status');
+        expect(go(authed, _loaded(v), '/work'), '/status');
+        expect(go(authed, _loaded(v), '/work/services/new'), '/status');
         expect(go(authed, _loaded(v), '/splash?from=%2Fhome'), '/status');
       });
     }
@@ -101,6 +117,9 @@ void main() {
     test('financial suspension does not change routing (it is independent)', () {
       final suspendedWallet = _loaded(VerificationStatus.approved, f: FinancialStatus.suspended);
       expect(go(authed, suspendedWallet, '/home'), isNull);
+      // She must be able to reach a job in progress, and her wallet to settle.
+      expect(go(authed, suspendedWallet, '/bookings/b1'), isNull);
+      expect(go(authed, suspendedWallet, '/wallet'), isNull);
     });
 
     test('resumes a local page after the splash, never an external one', () {

@@ -18,8 +18,18 @@ abstract final class AppRoutes {
   static const profile = '/status/profile';
   static const documents = '/status/documents';
 
-  /// APPROVED only. Everything that implies she can work goes under here.
+  /// APPROVED only, like every path below: anything not on the status
+  /// allow-lists in app_redirect.dart is closed until she is approved.
   static const home = '/home';
+  static const work = '/work';
+  static const availability = '/work/availability';
+  static const offeringNew = '/work/services/new';
+  static const wallet = '/wallet';
+  static const bookingPrefix = '/bookings';
+
+  static String offeringFor(String id) => '/work/services/$id';
+
+  static String bookingFor(String id) => '$bookingPrefix/$id';
 
   static String phoneFor(String countryId) =>
       Uri(path: phone, queryParameters: {'countryId': countryId}).toString();

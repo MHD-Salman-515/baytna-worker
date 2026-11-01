@@ -40,6 +40,26 @@ import 'package:baytna_worker/features/auth/presentation/bloc/otp/otp_bloc.dart'
     as _i450;
 import 'package:baytna_worker/features/auth/presentation/bloc/phone/phone_bloc.dart'
     as _i94;
+import 'package:baytna_worker/features/availability/data/datasources/availability_remote_data_source.dart'
+    as _i129;
+import 'package:baytna_worker/features/availability/data/repositories/availability_repository_impl.dart'
+    as _i441;
+import 'package:baytna_worker/features/availability/domain/repositories/availability_repository.dart'
+    as _i41;
+import 'package:baytna_worker/features/availability/presentation/bloc/availability/availability_bloc.dart'
+    as _i328;
+import 'package:baytna_worker/features/bookings/data/datasources/booking_remote_data_source.dart'
+    as _i452;
+import 'package:baytna_worker/features/bookings/data/repositories/booking_repository_impl.dart'
+    as _i254;
+import 'package:baytna_worker/features/bookings/domain/booking_context.dart'
+    as _i285;
+import 'package:baytna_worker/features/bookings/domain/repositories/booking_repository.dart'
+    as _i783;
+import 'package:baytna_worker/features/bookings/presentation/bloc/booking_detail/booking_detail_bloc.dart'
+    as _i122;
+import 'package:baytna_worker/features/bookings/presentation/bloc/bookings/bookings_bloc.dart'
+    as _i968;
 import 'package:baytna_worker/features/cities/data/datasources/city_remote_data_source.dart'
     as _i602;
 import 'package:baytna_worker/features/cities/data/repositories/city_repository_impl.dart'
@@ -62,12 +82,30 @@ import 'package:baytna_worker/features/documents/domain/repositories/document_re
     as _i274;
 import 'package:baytna_worker/features/documents/presentation/bloc/documents/documents_bloc.dart'
     as _i1068;
+import 'package:baytna_worker/features/offerings/data/datasources/offering_remote_data_source.dart'
+    as _i890;
+import 'package:baytna_worker/features/offerings/data/repositories/offering_repository_impl.dart'
+    as _i942;
+import 'package:baytna_worker/features/offerings/domain/repositories/offering_repository.dart'
+    as _i601;
+import 'package:baytna_worker/features/offerings/presentation/bloc/offering_form/offering_form_bloc.dart'
+    as _i176;
+import 'package:baytna_worker/features/offerings/presentation/bloc/offerings/offerings_bloc.dart'
+    as _i75;
 import 'package:baytna_worker/features/onboarding/presentation/bloc/apply/apply_bloc.dart'
     as _i918;
 import 'package:baytna_worker/features/onboarding/presentation/bloc/profile_form/profile_form_bloc.dart'
     as _i659;
 import 'package:baytna_worker/features/onboarding/presentation/bloc/status/status_bloc.dart'
     as _i126;
+import 'package:baytna_worker/features/wallet/data/datasources/wallet_remote_data_source.dart'
+    as _i98;
+import 'package:baytna_worker/features/wallet/data/repositories/wallet_repository_impl.dart'
+    as _i173;
+import 'package:baytna_worker/features/wallet/domain/repositories/wallet_repository.dart'
+    as _i6;
+import 'package:baytna_worker/features/wallet/presentation/bloc/wallet/wallet_bloc.dart'
+    as _i5;
 import 'package:baytna_worker/features/worker/data/datasources/worker_remote_data_source.dart'
     as _i594;
 import 'package:baytna_worker/features/worker/data/repositories/worker_repository_impl.dart'
@@ -76,6 +114,8 @@ import 'package:baytna_worker/features/worker/domain/entities/worker_profile.dar
     as _i306;
 import 'package:baytna_worker/features/worker/domain/repositories/worker_repository.dart'
     as _i690;
+import 'package:baytna_worker/features/worker/presentation/bloc/availability_toggle/availability_toggle_cubit.dart'
+    as _i715;
 import 'package:baytna_worker/features/worker/presentation/bloc/worker/worker_bloc.dart'
     as _i378;
 import 'package:dio/dio.dart' as _i361;
@@ -143,6 +183,12 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i228.AuthRemoteDataSource>(
       () => _i228.AuthRemoteDataSource(gh<_i519.ApiClient>()),
     );
+    gh.lazySingleton<_i129.AvailabilityRemoteDataSource>(
+      () => _i129.AvailabilityRemoteDataSource(gh<_i519.ApiClient>()),
+    );
+    gh.lazySingleton<_i452.BookingRemoteDataSource>(
+      () => _i452.BookingRemoteDataSource(gh<_i519.ApiClient>()),
+    );
     gh.lazySingleton<_i602.CityRemoteDataSource>(
       () => _i602.CityRemoteDataSource(gh<_i519.ApiClient>()),
     );
@@ -151,6 +197,12 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.lazySingleton<_i415.DocumentRemoteDataSource>(
       () => _i415.DocumentRemoteDataSource(gh<_i519.ApiClient>()),
+    );
+    gh.lazySingleton<_i890.OfferingRemoteDataSource>(
+      () => _i890.OfferingRemoteDataSource(gh<_i519.ApiClient>()),
+    );
+    gh.lazySingleton<_i98.WalletRemoteDataSource>(
+      () => _i98.WalletRemoteDataSource(gh<_i519.ApiClient>()),
     );
     gh.lazySingleton<_i594.WorkerRemoteDataSource>(
       () => _i594.WorkerRemoteDataSource(gh<_i519.ApiClient>()),
@@ -161,6 +213,12 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i1064.AuthLocalDataSource>(),
         gh<_i255.TokenStorage>(),
       ),
+    );
+    gh.lazySingleton<_i601.OfferingRepository>(
+      () => _i942.OfferingRepositoryImpl(gh<_i890.OfferingRemoteDataSource>()),
+    );
+    gh.factory<_i75.OfferingsBloc>(
+      () => _i75.OfferingsBloc(gh<_i601.OfferingRepository>()),
     );
     gh.factoryParam<_i450.OtpBloc, String, String>(
       (countryId, phone) => _i450.OtpBloc(
@@ -177,6 +235,9 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i863.SessionEvents>(),
       ),
     );
+    gh.lazySingleton<_i6.WalletRepository>(
+      () => _i173.WalletRepositoryImpl(gh<_i98.WalletRemoteDataSource>()),
+    );
     gh.lazySingleton<_i690.WorkerRepository>(
       () => _i724.WorkerRepositoryImpl(
         gh<_i594.WorkerRemoteDataSource>(),
@@ -190,11 +251,22 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i485.CountryRepository>(
       () => _i66.CountryRepositoryImpl(gh<_i899.CountryRemoteDataSource>()),
     );
+    gh.lazySingleton<_i783.BookingRepository>(
+      () => _i254.BookingRepositoryImpl(gh<_i452.BookingRemoteDataSource>()),
+    );
     gh.factory<_i918.ApplyBloc>(
       () => _i918.ApplyBloc(gh<_i690.WorkerRepository>()),
     );
+    gh.factory<_i715.AvailabilityToggleCubit>(
+      () => _i715.AvailabilityToggleCubit(gh<_i690.WorkerRepository>()),
+    );
     gh.lazySingleton<_i274.DocumentRepository>(
       () => _i1025.DocumentRepositoryImpl(gh<_i415.DocumentRemoteDataSource>()),
+    );
+    gh.lazySingleton<_i41.AvailabilityRepository>(
+      () => _i441.AvailabilityRepositoryImpl(
+        gh<_i129.AvailabilityRemoteDataSource>(),
+      ),
     );
     gh.lazySingleton<_i781.CityRepository>(
       () => _i538.CityRepositoryImpl(gh<_i602.CityRemoteDataSource>()),
@@ -207,6 +279,20 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.factory<_i317.CountriesBloc>(
       () => _i317.CountriesBloc(gh<_i485.CountryRepository>()),
+    );
+    gh.factoryParam<_i328.AvailabilityBloc, String, dynamic>(
+      (countryId, _) => _i328.AvailabilityBloc(
+        gh<_i41.AvailabilityRepository>(),
+        gh<_i485.CountryRepository>(),
+        countryId,
+      ),
+    );
+    gh.factoryParam<_i5.WalletBloc, String, dynamic>(
+      (countryId, _) => _i5.WalletBloc(
+        gh<_i6.WalletRepository>(),
+        gh<_i485.CountryRepository>(),
+        countryId,
+      ),
     );
     gh.lazySingleton<_i1008.AppRouter>(
       () => _i1008.AppRouter(gh<_i51.AuthBloc>(), gh<_i378.WorkerBloc>()),
@@ -230,6 +316,38 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i113.AuthRepository>(),
         gh<_i485.CountryRepository>(),
         _countryId,
+      ),
+    );
+    gh.factoryParam<_i176.OfferingFormBloc, String, String?>(
+      (countryId, offeringId) => _i176.OfferingFormBloc(
+        gh<_i601.OfferingRepository>(),
+        gh<_i485.CountryRepository>(),
+        countryId,
+        offeringId,
+      ),
+    );
+    gh.lazySingleton<_i285.BookingContextLoader>(
+      () => _i285.BookingContextLoader(
+        gh<_i485.CountryRepository>(),
+        gh<_i781.CityRepository>(),
+        gh<_i601.OfferingRepository>(),
+      ),
+    );
+    gh.factoryParam<_i122.BookingDetailBloc, String, String>(
+      (id, countryId) => _i122.BookingDetailBloc(
+        gh<_i783.BookingRepository>(),
+        gh<_i285.BookingContextLoader>(),
+        gh<_i601.OfferingRepository>(),
+        gh<_i6.WalletRepository>(),
+        id,
+        countryId,
+      ),
+    );
+    gh.factoryParam<_i968.BookingsBloc, String, dynamic>(
+      (countryId, _) => _i968.BookingsBloc(
+        gh<_i783.BookingRepository>(),
+        gh<_i285.BookingContextLoader>(),
+        countryId,
       ),
     );
     return this;

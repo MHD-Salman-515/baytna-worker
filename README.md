@@ -4,10 +4,10 @@ The app housekeepers use on the Baytna home-services marketplace (Syria, Iraq).
 Built with Flutter and BLoC. Arabic is the primary language (RTL by default) and
 English is secondary. The Arabic copy addresses the worker in the feminine.
 
-> **Status (step 1, foundation):** networking, session, phone + OTP login, and
-> onboarding up to submission for review (apply → profile → documents → submit),
-> plus a status screen that serves as her home until she is approved. Bookings,
-> offers, wallet and tracking come next.
+> **Status (step 2, the working half):** on top of the foundation (login,
+> onboarding, status screen): her services and pricing, weekly availability,
+> incoming scheduled bookings, the job lifecycle, and her wallet. Not yet:
+> INSTANT offers and presence, live tracking, push, reviews, panic.
 
 The architecture mirrors [baytna-customer](https://github.com/MHD-Salman-515/baytna-customer).
 Its README covers the shared request pipeline and session handling in depth.
@@ -45,6 +45,13 @@ to guard it.
 can be financially suspended. The two appear as separate rows with separate
 badges ([AccountStandingCard](lib/features/worker/presentation/widgets/account_standing_card.dart))
 and are never merged into a single "account status".
+
+**Two independent gates decide what she can do**, and clearing one never clears
+the other: `verificationStatus` must be APPROVED (the router enforces it) and
+`financialStatus` must be ACTIVE. `WorkerProfile.canTakeNewWork` is the check
+for NEW work only. A financially suspended worker can't accept, but **every
+step of a job she already holds keeps working**, and she can still reach her
+wallet to settle. `booking_detail_screen_test.dart` pins this per status.
 
 ### Onboarding flow
 
@@ -103,6 +110,51 @@ and are never merged into a single "account status".
 
 ---
 
+## The working half: decisions that matter
+
+- **Prices are ranges first.** The admin's min/max from `GET
+  /service-pricing-rules` appears as soon as she picks a pricing model, before
+  she types. Only `allowedPricingTypes` are offered. The same checks run
+  client-side (`OfferingValidator`), and a server refusal is parsed for its
+  range. Currency is shown as fixed and is never sent on PATCH.
+- **The country's clock, not the phone's.** Availability times are `HH:mm` text
+  and are never turned into a `DateTime`. The schedule names the zone and shows
+  the time there now. Booking times use `CountryTime`.
+- **Availability is intent.** The switch says it isn't approval, and says when
+  it has no effect.
+- **The decision is honest.** Before she accepts, the backend sends only the
+  landmark, so the card leads with it and says what's hidden. A true distance
+  is impossible (see [Backend gaps](#backend-gaps)). It shows "in your city", or
+  km between CITY CENTRES, labelled as such.
+- **Deadlines tick.** `responseDeadline` counts down live. At zero the answer
+  buttons go and the booking reloads.
+- **One legal step.** `JobAction.next(status)` is the only button offered, so
+  she can't tap into a 400. If her screen was stale, the real status is parsed
+  from the backend's error, the booking reloads, and she's told why in Arabic.
+- **A lost response is never replayed.** POSTs aren't idempotent here (a repeat
+  is a 400), so after a timeout, dropped connection or 5xx the booking is
+  re-read: if it reached the target status, that's a success. On `complete`
+  this is real money.
+- **Her list is the only read.** There's no single-booking GET for workers, so
+  `find` walks `/workers/me/bookings`, and every step re-reads from there.
+- **Estimate, then final.** Up to completion the figure is labelled an estimate
+  and says how the real one is worked out. After, the final figure sits beside
+  the estimate with the reason they differ and the commission taken. The app
+  computes no money: every figure comes from the server.
+- **Complete is a swipe.** `SwipeToConfirm`: a tap does nothing, an early release
+  springs back, and screen readers get a labelled action.
+- **Money is `int` + currency.** `Money` has no doubles. `moneyFromJson` THROWS
+  on a fractional amount rather than round someone's pay. Amounts are shown as
+  sent, in whole currency units, matching the customer app.
+- **Wallet.** A negative balance is normal, so the card leads with room left
+  before the floor and warns at `lowBalanceWarningThreshold`. Suspension is read
+  from the profile, never inferred from the balance. Top-up is stated as
+  staff-recorded; there's no button.
+- **Finding new requests.** There's no push yet, so Jobs polls every 90 s and on
+  resume. That's the seam for notifications.
+
+---
+
 ## Run it
 
 Requirements: Flutter 3.47 / Dart 3.13, an Android emulator or device.
@@ -145,6 +197,14 @@ flutter test           # unit + bloc tests, no network
 dart run build_runner build --delete-conflicting-outputs   # after changing DI/models
 ```
 
+**Read-only tour** of an approved worker on staging (saves nothing):
+`integration_test/work_smoke_e2e_test.dart`.
+
+**Full job** (`integration_test/job_e2e_test.dart`) MOVES REAL STATE: it accepts
+a pending booking, completes it and charges commission. It needs a
+PENDING_WORKER booking. See the file header for the command and
+`E2E_WORK_SECONDS`.
+
 **Live end-to-end onboarding** runs on an Android emulator against staging. It
 signs in with a **new random number**, applies, fills the profile, uploads the
 three documents, submits, and checks that the status screen shows
@@ -174,6 +234,7 @@ lib/
   core/                   same layout as the customer app:
     config/ di/ error/ localization/ storage/ theme/ widgets/ dev/ utils/
     network/              + paged.dart (meta), upload_file.dart, replay.dart (FormData clone)
+    format/ time/ geo/    Money, CountryTime, GeoPoint
     router/               app_routes.dart, app_redirect.dart (status policy), app_router.dart
   features/
     auth/                 phone + OTP, session (from the customer app)
@@ -183,7 +244,13 @@ lib/
     onboarding/           apply, profile form, status screen + submit, OnboardingChecklist
     documents/            entities, validator, requirements, repository (safe retry),
                           platform picker, DocumentsBloc, screen
-    home/                 APPROVED-only placeholder
+    offerings/            her services: catalog, price rules, three pricing
+                          models, OfferingValidator, the Work tab
+    availability/         weekly windows + date exceptions, on the country's clock
+    bookings/             requests, the job state machine (JobAction), lost-response
+                          handling, countdown, swipe, money outcome
+    wallet/               balance, WalletStanding, ledger
+    home/                 the approved worker's tab shell
 ```
 
 ## Conventions
@@ -193,9 +260,9 @@ The customer app's conventions apply unchanged: data/domain/presentation layers,
 strings, `EdgeInsetsDirectional`, phone numbers LTR, and so on. See its README →
 *Conventions for new features*. Additions for this app:
 
-1. **A new screen that implies she can work** goes under `/home` (or any new
-   path). It is unreachable unless she is APPROVED; add nothing to the
-   non-approved allow-lists.
+1. **A new screen that implies she can work** gets a new path. It is
+   unreachable unless she is APPROVED; add nothing to the non-approved
+   allow-lists. Gate NEW work on `canTakeNewWork`, and never a job in hand.
 2. **Anything that changes her profile** (save, submit, apply) hands the returned
    profile to the WorkerBloc with `WorkerProfileChanged`. Screens never keep
    their own copy of her status.
@@ -227,3 +294,26 @@ Observed against staging on 2026-10-26. None of this is in Swagger.
 | Upload or profile edit while PENDING_REVIEW | Accepted by the backend; the app's router doesn't offer it |
 | Submit, missing docs | 400 "Cannot submit for review: missing or rejected required documents (…)" |
 | Submit twice | 400 "Cannot transition worker verification status from PENDING_REVIEW to PENDING_REVIEW" |
+| `GET /workers/me/services` | `{ id, serviceId, pricingType, hourly{rate,minHours}\|null, bySize{tiers[{maxRooms,price}]}\|null, fixed{price}\|null, currency, isActive }` |
+| Service refusals | 400 "price must be between 10000 and 50000 (inclusive)" (also "rate must be…") · 400 "BY_SIZE is not an allowed pricing type for COOKING (allowed: …)" · 409 "You already offer this service…" · 400 "currency must be SYP for your country" · PATCH `currency` → 400 "property currency should not exist" |
+| Service changes | PATCH may switch `pricingType` · `isActive:false` keeps it listed · DELETE → 204, then 404 |
+| Availability PUT | Both lists required. 400 on start ≥ end, overlaps, non-`HH:mm`. Several windows a day are fine. EXTRA needs times; BLOCKED drops them. **Past dates are accepted** |
+| `PATCH /workers/me/availability` | Answers with the whole profile |
+| `GET /workers/me/bookings` | Paged, `limit` ≤ 100. `status` is a **single** value. Before acceptance `address` is `{landmark}` only and `customerPhone` is null. `pricing` has `workerEarnings` (after commission), never `basePrice` |
+| Illegal step | 400 "Cannot ACCEPT a booking from status EXPIRED to ACCEPTED (requires current status to be one of: PENDING_WORKER)". Cancel: ACCEPTED, ON_THE_WAY, ARRIVED only |
+| `reject`, `cancel` | Without a reason: 400 "reason should not be empty" |
+| `GET /workers/me/wallet` | `{ _id, workerProfileId, countryId, balance, currency }` only. **No floor, no status** |
+| `GET /workers/me/wallet/entries` | Paged, `limit` ≤ 100, no `type` filter |
+
+## Backend gaps
+
+1. **No distance before acceptance.** The brief wanted distance prominent at
+   decision time, but the worker projection has no pin and no distance, and the
+   app has no location of hers this phase. Fix: add a server-computed
+   `distanceKm` (from her home or last location to the pin, without exposing
+   the pin).
+2. **No single-booking GET for workers.** `GET /bookings/:id` is 404 for her and
+   `/workers/me/bookings/:id` doesn't exist, so detail walks her list.
+3. **Wallet lacks floor and status** (see above): the app joins country policy
+   and the profile.
+4. **Malformed ids return 500** (`DELETE /workers/me/documents/zzz`).

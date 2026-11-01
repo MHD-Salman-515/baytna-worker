@@ -8,11 +8,17 @@ import 'package:baytna_worker/features/auth/presentation/screens/country_selecti
 import 'package:baytna_worker/features/auth/presentation/screens/otp_screen.dart';
 import 'package:baytna_worker/features/auth/presentation/screens/phone_entry_screen.dart';
 import 'package:baytna_worker/features/auth/presentation/screens/splash_screen.dart';
+import 'package:baytna_worker/features/availability/presentation/screens/availability_screen.dart';
+import 'package:baytna_worker/features/bookings/presentation/screens/booking_detail_screen.dart';
+import 'package:baytna_worker/features/bookings/presentation/screens/jobs_screen.dart';
 import 'package:baytna_worker/features/documents/presentation/screens/documents_screen.dart';
-import 'package:baytna_worker/features/home/presentation/screens/home_screen.dart';
+import 'package:baytna_worker/features/home/presentation/screens/home_shell.dart';
+import 'package:baytna_worker/features/offerings/presentation/screens/offering_form_screen.dart';
+import 'package:baytna_worker/features/offerings/presentation/screens/work_screen.dart';
 import 'package:baytna_worker/features/onboarding/presentation/screens/apply_screen.dart';
 import 'package:baytna_worker/features/onboarding/presentation/screens/profile_form_screen.dart';
 import 'package:baytna_worker/features/onboarding/presentation/screens/status_screen.dart';
+import 'package:baytna_worker/features/wallet/presentation/screens/wallet_screen.dart';
 import 'package:baytna_worker/features/worker/presentation/bloc/worker/worker_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -59,7 +65,30 @@ class AppRouter {
           GoRoute(path: 'documents', builder: (_, _) => const DocumentsScreen()),
         ],
       ),
-      GoRoute(path: AppRoutes.home, builder: (_, _) => const HomeScreen()),
+      StatefulShellRoute.indexedStack(
+        builder: (_, _, shell) => HomeShell(shell: shell),
+        branches: [
+          StatefulShellBranch(
+            routes: [GoRoute(path: AppRoutes.home, builder: (_, _) => const JobsScreen())],
+          ),
+          StatefulShellBranch(
+            routes: [GoRoute(path: AppRoutes.work, builder: (_, _) => const WorkScreen())],
+          ),
+          StatefulShellBranch(
+            routes: [GoRoute(path: AppRoutes.wallet, builder: (_, _) => const WalletScreen())],
+          ),
+        ],
+      ),
+      GoRoute(path: AppRoutes.availability, builder: (_, _) => const AvailabilityScreen()),
+      GoRoute(path: AppRoutes.offeringNew, builder: (_, _) => const OfferingFormScreen()),
+      GoRoute(
+        path: '/work/services/:id',
+        builder: (_, state) => OfferingFormScreen(offeringId: state.pathParameters['id']),
+      ),
+      GoRoute(
+        path: '${AppRoutes.bookingPrefix}/:id',
+        builder: (_, state) => BookingDetailScreen(bookingId: state.pathParameters['id']!),
+      ),
     ],
     errorBuilder: (context, state) => const _NotFoundScreen(),
   );
